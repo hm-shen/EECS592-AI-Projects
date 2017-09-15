@@ -1,4 +1,6 @@
 import java.util.*;
+import java.io.*;
+
 
 public class KnightsTour
 {
@@ -77,6 +79,12 @@ public class KnightsTour
             boardFlags[row][col] = true;
         }
 
+        // unmark a node on board
+        public void unmarkNode(int row, int col)
+        {
+            boardFlags[row][col] = false;
+        }
+
         // test chessboard class
         public void testChessboard()
         {
@@ -97,14 +105,77 @@ public class KnightsTour
                     + ") is " + getDegree(row, col));
         }
     }
+    static boolean isAlive(Chessboard board, int row, int col, boolean ruleFlag)
+    {
+        // get degree of this node
+        if (ruleFlag)
+        {
+            int deg = board.getDegree(row, col);
+            if (deg > 0) {return true;} else {return false;}
+        }
+        else 
+        {
+            System.out.println("rules are not supported at this time!");
+            System.exit(0);
+            return false;
+        }
+    }
 
-    static void solveKT(Chessboard board, int stRow, int stCol)
+    static void reorderNbrs(Chessboard board, ArrayList<int[]> candNodes)
+    {
+        int candLength = candNodes.size();
+        boolean randFlag = true;
+        boolean fixFlag = false;
+        boolean dynFlag = false;
+
+        // if (randFlag)
+        // {
+        // choose randomly
+        Collections.shuffle(candNodes);
+        // }
+
+        // choose accord. to fix degree
+
+        // choose accord. to dynamic degree
+    }
+
+    static boolean isDone(Chessboard board, int curRow, int curCol, int stRow,
+            int stCol, ArrayList<int[]> path)
+    {
+        if ((path.size() == board.dim * board.dim) && (curRow == stRow) && 
+            (curCol == stCol))
+        { return true; }
+        else 
+        { return false; }
+    }
+
+    static void writePathToFile(Chessboard board, ArrayList<int[]> path, 
+            String fileName, int ST, int stRow, int stCol)
+    {
+        try{
+        PrintWriter writer = new PrintWriter(fileName);
+        writer.println("KT: " + board.dim + "x" + board.dim + ", strategy = " 
+                + ST + ", start = " + stRow + "," + stCol + "\n");
+        writer.println("001: ");
+        for (int ind = 0; ind < path.size(); ind++)
+        {
+            int[] pos = path.get(ind);
+            writer.println(pos[0] + "," + pos[1] + " ");
+        }
+        writer.close();
+        } catch (IOException e) {
+            System.out.println("Writing Error!");
+            System.exit(0);
+        }
+    }
+
+    static boolean solveKT(Chessboard board, int stRow, int stCol, boolean ruleFlag)
     {
         // check input starting points
         assert board.isValidPos(stRow, stCol);
 
-        // init paths list and stack
-        ArrayList<int[]> paths = new ArrayList<int[]>();
+        // init path list and stack
+        ArrayList<int[]> path = new ArrayList<int[]>();
         Stack<int[]> stack = new Stack<int[]>();
 
         // start iterative DFS using stack
@@ -113,34 +184,46 @@ public class KnightsTour
         {
             // pop new node to list
             int[] curNode = stack.pop();
-            paths.add(curNode);
+            path.add(curNode);
 
             // mark the node on board
             board.markNode(curNode[0], curNode[1]);
 
-            // judge if failure / alive / done 
-            // if alive
+            // check if done
+            if (isDone(board, curNode[0], curNode[1], stRow, stCol, path))
+            {
+                // print path to file
+                writePathToFile(board, path, "output.txt", 0, stRow, stCol);
+                return true;
+            }
+
+            // judge if failure / alive
+            if ( isAlive(board, curNode[0], curNode[1], ruleFlag) )
+            {
                 // find its neighbors
-
-                // sort its neighbors accord. to requirements
-
+                ArrayList<int[]> nbrs = board.getNeighbors(curNode[0], curNode[1]);
+                // reorder its neighbors accord. to requirements
+                reorderNbrs(board, nbrs);
                 // push its neighbors into stack
+                stack.addAll(nbrs);
+            }
+            else
+            {
+                // failure
+                path.remove(path.size() - 1);
+                board.unmarkNode(curNode[0], curNode[1]);
+            }
 
-            // else if done
-                // set done flag to true, break
-
-            // else (failure)
-                // unmark the current node
-                // remove current node from path (go back to upper level) 
-            
             // start new loop
         }
+        return false;
     }
 
     public static void main(String[] args)
     {
         int dimension = 5;
+        boolean ruleFlag = false;
         Chessboard board = new Chessboard(dimension);
-        board.testChessboard();
+        // board.testChessboard();
     }
 }
