@@ -1,0 +1,35 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Chessboard	KnightsTour.java	/^        public Chessboard(int n) {$/;"	m	class:KnightsTour.Chessboard
+Chessboard	KnightsTour.java	/^    public static class Chessboard {$/;"	c	class:KnightsTour
+KnightsTour	KnightsTour.java	/^public class KnightsTour {$/;"	c
+boardFlags	KnightsTour.java	/^        boolean[][] boardFlags;$/;"	f	class:KnightsTour.Chessboard
+clearBoard	KnightsTour.java	/^        public void clearBoard() {$/;"	m	class:KnightsTour.Chessboard
+dim	KnightsTour.java	/^        int dim;$/;"	f	class:KnightsTour.Chessboard
+fixedDeg	KnightsTour.java	/^        int[][] fixedDeg;$/;"	f	class:KnightsTour.Chessboard
+getDim	KnightsTour.java	/^        public int getDim() { return dim; }$/;"	m	class:KnightsTour.Chessboard
+getDynamicDeg	KnightsTour.java	/^        public int getDynamicDeg(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+getNeighbors	KnightsTour.java	/^        public ArrayList<int[]> getNeighbors(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+isAlive	KnightsTour.java	/^    static boolean isAlive(Chessboard board, int row, int col, int ST) {$/;"	m	class:KnightsTour
+isDone	KnightsTour.java	/^    static boolean isDone(Chessboard board, int curRow, int curCol, int stRow,$/;"	m	class:KnightsTour
+isReachable	KnightsTour.java	/^        public boolean isReachable(int row1, int col1, int row2, int col2) {$/;"	m	class:KnightsTour.Chessboard
+isValidPos	KnightsTour.java	/^        public boolean isValidPos (int row,int col) {$/;"	m	class:KnightsTour.Chessboard
+main	KnightsTour.java	/^    public static void main(String[] args)$/;"	m	class:KnightsTour
+main	test.java	/^    public static void main(String[] args)$/;"	m	class:test
+markNode	KnightsTour.java	/^        public void markNode(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+printArrList	KnightsTour.java	/^    static void printArrList(ArrayList<int[]> arrList) {$/;"	m	class:KnightsTour
+printArrList	test.java	/^    public static void printArrList(ArrayList<int[]> arrList)$/;"	m	class:test
+reorderNbrs	KnightsTour.java	/^    static ArrayList<int[]> reorderNbrs(Chessboard board, ArrayList<int[]> candNodes, int ST) {$/;"	m	class:KnightsTour
+shuffleArrList	test.java	/^    public static void shuffleArrList(ArrayList<int[]> arrList)$/;"	m	class:test
+solveKT	KnightsTour.java	/^    static int solveKT(Chessboard board, int stRow, int stCol, int ST,$/;"	m	class:KnightsTour
+sortAccordDynDeg	KnightsTour.java	/^    static ArrayList<int[]> sortAccordDynDeg(Chessboard board,$/;"	m	class:KnightsTour
+sortAccordFixDeg	KnightsTour.java	/^    static ArrayList<int[]> sortAccordFixDeg(Chessboard board,$/;"	m	class:KnightsTour
+test	test.java	/^public class test$/;"	c
+unmarkNode	KnightsTour.java	/^        public void unmarkNode(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+writePathToFile	KnightsTour.java	/^    static void writePathToFile(Chessboard board, ArrayList<int[]> path, $/;"	m	class:KnightsTour
+xDelta	KnightsTour.java	/^        int xDelta[] = {2, 1, -1, -2, -2, -1, 1, 2};$/;"	f	class:KnightsTour.Chessboard
+yDelta	KnightsTour.java	/^        int yDelta[] = {1, 2, 2, 1, -1, -2, -2, -1};$/;"	f	class:KnightsTour.Chessboard

@@ -1,0 +1,2 @@
+KT: 5x5, strategy = 1, start = 2,3
+
