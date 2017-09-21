@@ -144,6 +144,7 @@ public class KnightsTour {
         }
     }
 
+
     static ArrayList<int[]> sortAccordFixDeg(Chessboard board,
             ArrayList<int[]> candNodes) {
         int length = candNodes.size();
@@ -258,8 +259,8 @@ public class KnightsTour {
     static void printArrList(ArrayList<int[]> arrList) {
         for (int ind = 0; ind < arrList.size(); ind++) {
             int[] tup = arrList.get(ind);
-            // System.out.println("The " + (ind+1) + " elements in the ArrayList " 
-            //         + "is: (" + tup[0] + "," + tup[1] + ")");
+            System.out.println("The " + (ind+1) + " elements in the ArrayList " 
+                    + "is: (" + tup[0] + "," + tup[1] + ")");
         }
     }
 
@@ -269,7 +270,7 @@ public class KnightsTour {
         if ((path.size() == board.dim * board.dim)
                 && (board.isReachable(stRow, stCol, curRow, curCol))
                 && (board.getDynamicDeg(curRow, curCol) == 0)) {
-            System.out.println(board.isFullMarked());
+            // System.out.println(board.isFullMarked());
             return true; 
         } else { return false; }
     }
@@ -282,7 +283,7 @@ public class KnightsTour {
             writer.print(numOfKTfound + ": ");
             for (int ind = 0; ind < path.size(); ind++) {
                 int[] pos = path.get(ind);
-                writer.print(pos[0] + "," + pos[1] + " ");
+                writer.print((pos[0]+1) + "," + (pos[1]+1) + " ");
             }
             writer.print("\n");
             writer.close();
@@ -311,6 +312,8 @@ public class KnightsTour {
             int[] curNode = stack.peek();
             // System.out.println("Current path is:");
             // printArrList(path);
+            // printPath(board,path);
+            // System.out.println("\n");
             if (path.size() >= 1) {
                 int[] lastNode = path.get(path.size() - 1);
                 if (curNode[0] == lastNode[0] && curNode[1] == lastNode[1]) {
@@ -333,7 +336,7 @@ public class KnightsTour {
                 System.out.println("Knights'Tour is found!");
                 numOfKTfound++;
                 writePathToFile(board, path, outPath, 0, stRow, stCol, numOfKTfound);
-                printPath(board, path);
+                // printPath(board, path);
 
                 System.out.println("Finding new tour ...");
                 // change path and stack
@@ -358,6 +361,8 @@ public class KnightsTour {
                 // push its neighbors into stack
                 stack.addAll(nbrs);
                 // System.out.println("Iteration: " + iter);
+                // System.out.println("Current new path is:");
+                // printPath(board,path);
                 iter++;
             } else {
                 // failure
@@ -379,8 +384,8 @@ public class KnightsTour {
         // initialize parameters
         int dimension = 8;
         int[] startNode = {1,2};
-        int ST = 5;
-        int numIter = 1000;
+        int ST = 1;
+        int numIter = 1000000;
         int numOfKTfound = 0;
         String outputPath = "../outputs/paths-" + ST + ".txt";
 
