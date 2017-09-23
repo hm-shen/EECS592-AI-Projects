@@ -490,41 +490,86 @@ public class KnightsTour {
         return numOfKTfound;
     }
 
+    static void runTests(int dimension, int[] startNode, int[] candST,
+            int numIter, int numOfRuns, String outputPath) {
+        // int[][] record = new int[candST.length][numOfRuns];
+        // run test for each strategy
+        for (int ind = 0; ind < candST.length; ind++) {
+            double[][] numAndTime = new double[2][numOfRuns];
+            for (int jnd = 0; jnd < numOfRuns; jnd++) {
+                // run each test for numOfRuns runs
+                Chessboard board = new Chessboard(dimension);
+                // track the time 
+                double stTime = System.currentTimeMillis();
+                // solve the problem
+                int numOfKTfound = solveKT(board, startNode[0], startNode[1], 
+                        candST[ind], numIter, outputPath);
+                double edTime = System.currentTimeMillis();
+                double timeTaken = edTime - stTime; 
+                numAndTime[0][jnd] = (double)numOfKTfound;
+                numAndTime[1][jnd] = timeTaken / 1000.0;
+            }
+        // write num and time to csv file
+            try {
+                FileWriter count_writer = new FileWriter("../outputs/testRstNum" 
+                        + candST[ind] + ".csv");
+                FileWriter time_writer = new FileWriter("../outputs/testRstTime" 
+                        + candST[ind] + ".csv");
+                for (int j = 0; j < (numOfRuns-1); j++) {
+                    count_writer.append(String.valueOf(numAndTime[0][j]));
+                    time_writer.append(String.valueOf(numAndTime[1][j]));
+                    count_writer.append(",");
+                    time_writer.append(",");
+                }
+                count_writer.append(String.valueOf(numAndTime[0][numOfRuns-1]));
+                time_writer.append(String.valueOf(numAndTime[1][numOfRuns-1]));
+                count_writer.close();
+                time_writer.close();
+            } catch (IOException ioe) {
+                System.err.println("IOException: " + ioe.getMessage());
+                System.exit(0);
+            }
+        }
+    }
+
+
     public static void main(String[] args)
     {
         // initialize parameters
         int dimension = 8;
         int[] startNode = {1,2};
-        int ST = 1;
+        int ST = 4;
+        int[] candST = {0,1,2,3,4,5,6};
         int numIter = 1000000;
         int numOfRuns = 30;
         int numOfFoundList[] = new int[numOfRuns];
         String outputPath = "../outputs/paths-" + ST + ".txt";
 
+        runTests(dimension, startNode, candST, numIter, numOfRuns, outputPath);
 
-        for (int ind = 0; ind < numOfRuns; ind ++) {
-            // create chessboard obj
-            Chessboard board = new Chessboard(dimension);
+        // for (int ind = 0; ind < numOfRuns; ind ++) {
+        //     // create chessboard obj
+        //     Chessboard board = new Chessboard(dimension);
 
-            // create output file
-            try{
-                PrintWriter writer = new PrintWriter(outputPath);
-                writer.println("KT: " + board.dim + "x" + board.dim + ", strategy = " 
-                        + ST + ", start = " + (startNode[0]+1) + "," + (startNode[1]+1) + "\n");
-                writer.close();
-            } catch (IOException ioe) {
-                System.err.println("IOException: " + ioe.getMessage());
-                System.exit(0);
-            }
+        //     // create output file
+        //     try{
+        //         PrintWriter writer = new PrintWriter(outputPath);
+        //         writer.println("KT: " + board.dim + "x" + board.dim + ", strategy = " 
+        //                 + ST + ", start = " + (startNode[0]+1) + "," + (startNode[1]+1) + "\n");
+        //         writer.close();
+        //     } catch (IOException ioe) {
+        //         System.err.println("IOException: " + ioe.getMessage());
+        //         System.exit(0);
+        //     }
 
-            int numOfKTfound = solveKT(board, startNode[0], startNode[1], ST,
-                    numIter, outputPath);
-            System.out.println(numOfKTfound + " knights' tour are found in total");
-            numOfFoundList[ind] = numOfKTfound;
-        }
+        //     int numOfKTfound = solveKT(board, startNode[0], startNode[1], ST,
+        //             numIter, outputPath);
+        //     System.out.println(numOfKTfound + " knights' tour are found in total");
+        //     numOfFoundList[ind] = numOfKTfound;
+        // }
 
-        double meanNumOfFound = mean(numOfFoundList);
-        System.out.println("Average number of founded knight's tour: " + meanNumOfFound);
+        // double meanNumOfFound = mean(numOfFoundList);
+        // System.out.println("Average number of founded knight's tour: " + meanNumOfFound);
 
 
     }
