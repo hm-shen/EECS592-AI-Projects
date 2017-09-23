@@ -22,7 +22,7 @@ public class KnightsTour {
             for (int i = 0; i < dim; i++) {
                 for (int j = 0; j < dim; j++) {
                     boardFlags[i][j] = false;
-                    fixedDeg[i][j] = getFixDeg(i,j);
+                    fixedDeg[i][j] = getDynamicDeg(i,j);
                 }
             }
         }
@@ -69,19 +69,6 @@ public class KnightsTour {
             }
             return neighbors;
         }
-        
-        public int getFixDeg(int row, int col) {
-            int deg = 0;
-            int nbr_x = 0;
-            int nbr_y = 0;
-            for (int ind = 0; ind < 8; ind++) {
-                nbr_x = row + xDelta[ind];
-                nbr_y = col + yDelta[ind];
-                if (isValidPos(nbr_x, nbr_y))
-                    deg++;
-            }
-            return deg;
-        } 
 
         // get degree of the input node
         public int getDynamicDeg(int row, int col) {
@@ -164,6 +151,7 @@ public class KnightsTour {
             // get number of 1s in dynamic degree
             int numOfOne = 0;
             for (int ind = 0; ind < dynDegList.length; ind++) {
+                // System.out.println("deg before count 1: " + dynDegList[ind]);
                 if (dynDegList[ind] == 1)
                     numOfOne++;
             }
@@ -180,6 +168,7 @@ public class KnightsTour {
     static ArrayList<int[]> randomSortAccordFixDeg(Chessboard board,
             ArrayList<int[]> candNodes) {
         int length = candNodes.size();
+        // System.out.println("length is " + length);
         ArrayList<int[]> sortedCandNode = new ArrayList<int[]>();
         // get fix deg of each node in candNodes
         int[][] composedList = new int[length][3];
@@ -187,11 +176,13 @@ public class KnightsTour {
         for (int ind = 0; ind < candNodes.size(); ind++) {
             int[] node = candNodes.get(ind);
             int fixDeg = board.fixedDeg[node[0]][node[1]];
+            // System.out.println("Fix deg of this node is: " + fixDeg);
             composedList[ind] = new int[] {fixDeg, node[0], node[1]};
         }
         
         for (int ind = 0; ind < 9; ind++) {
             int curDeg = 9 - ind; 
+            // System.out.println("current degree: " + curDeg);
             ArrayList<int[]> curNodes = new ArrayList<int[]>();
             // find candidate nodes with deg curDeg
             for (int jnd = 0; jnd < length; jnd++) {
@@ -199,6 +190,7 @@ public class KnightsTour {
                     curNodes.add(composedList[jnd]);
                 }
             }
+            // System.out.println("num of nodes with this deg: " + curNodes.size());
             if (curNodes.size() > 0) { 
                 Collections.shuffle(curNodes); 
                 for (int knd = 0; knd < curNodes.size(); knd++) {
@@ -207,6 +199,7 @@ public class KnightsTour {
                 }
             }
         }
+        // System.out.println("length of returned node list: " + sortedCandNode.size());
         return sortedCandNode;
     }
 
@@ -295,6 +288,7 @@ public class KnightsTour {
         // fill in the sortedCandNode ArrayList
         for (int ind = 0; ind < candNodes.size(); ind++) {
             int[] tup = composedList[ind];
+            // System.out.println("deg: " + tup[0] + " (" + tup[1] + "," + tup[2] + ")");
             sortedCandNode.add(new int[] {tup[1],tup[2]});
         }
         return sortedCandNode;
@@ -319,6 +313,7 @@ public class KnightsTour {
         // fill in the sortedCandNode ArrayList
         for (int ind = 0; ind < candNodes.size(); ind++) {
             int[] tup = composedList[ind];
+            // System.out.println("deg: " + tup[0] + " (" + tup[1] + "," + tup[2] + ")");
             sortedCandNode.add(new int[] {tup[1],tup[2]});
         }
         return sortedCandNode;
@@ -335,6 +330,7 @@ public class KnightsTour {
             int[] node = candNodes.get(ind);
             int dynDeg = board.getDynamicDeg(node[0], node[1]);
             if (dynDeg == 1) {
+                // System.out.println("One degree node domination!");
                 numOfOne++; 
                 oneIndex = ind;
             }
@@ -357,6 +353,8 @@ public class KnightsTour {
         } else if (ST == 1) {
             // choose node with the smallest fix degree
             candNodes = randomSortAccordFixDeg(board, candNodes);
+            // System.out.println("is lenght == candNodes.size() ?" + (candNodes.size() == length));
+            // candNodes = sortAccordFixDeg(board, candNodes);
         } else if (ST == 2) {
             // choose node with the smallest dynamic degree
             candNodes = randomSortAccordDynDeg(board, candNodes);
@@ -389,14 +387,44 @@ public class KnightsTour {
         }
     }
 
+    static void printArrList(ArrayList<int[]> arrList) {
+        for (int ind = 0; ind < arrList.size(); ind++) {
+            int[] tup = arrList.get(ind);
+            System.out.println("The " + (ind+1) + " elements in the ArrayList " 
+                    + "is: (" + tup[0] + "," + tup[1] + ")");
+        }
+    }
+
     static boolean isDone(Chessboard board, int curRow, int curCol, int stRow,
             int stCol, ArrayList<int[]> path) {
         // check if path is full
         if ((path.size() == board.dim * board.dim) 
                 && (board.isReachable(stRow, stCol, curRow, curCol)) ) {
                 // && (board.getDynamicDeg(curRow, curCol) == 1)) {
+            // System.out.println(board.isFullMarked());
             return true; 
         } else { return false; }
+        // if (path.size() == board.dim * board.dim) {
+        //     board.boardFlags[stRow][stCol] = false;
+        //     ArrayList<int[]> nbrs = board.getNeighbors(curRow, curCol);
+        //     if (nbrs.size() == 1) {
+        //         int[] node = nbrs.get(0);
+        //         if (node[0] == stRow && node[1] == stCol) {
+        //             // tour is close!
+        //             board.boardFlags[stRow][stCol] = true;
+        //             return true; 
+        //         } else {
+        //             // tour is open!
+        //             board.boardFlags[stRow][stCol] = true;
+        //             return false;
+        //         }
+        //     } else {
+        //         // run into bugs!
+        //         board.boardFlags[stRow][stCol] = true;
+        //         System.out.println(" Bug! ");
+        //         return false;
+        //     }
+        // } else {return false;}
     }
 
     static void writePathToFile(Chessboard board, ArrayList<int[]> path, 
@@ -442,6 +470,10 @@ public class KnightsTour {
         while (iter < numIter && !stack.isEmpty()) {
             // pop new node to list
             int[] curNode = stack.peek();
+            // System.out.println("Current path is:");
+            // printArrList(path);
+            // printPath(board,path);
+            // System.out.println("\n");
             if (path.size() >= 1) {
                 int[] lastNode = path.get(path.size() - 1);
                 if (curNode[0] == lastNode[0] && curNode[1] == lastNode[1]) {
@@ -452,19 +484,28 @@ public class KnightsTour {
                 }
             }
             path.add(curNode);
+            // System.out.println("Current node is: (" + curNode[0] + "," + curNode[1]
+            //         + ")");
 
             // mark the node on board
             board.markNode(curNode[0], curNode[1]);
 
             // check if done
             if (isDone(board, curNode[0], curNode[1], stRow, stCol, path)) {
+                // print path to file
+                // System.out.println("Knights'Tour is found!");
                 numOfKTfound++;
                 writePathToFile(board, path, outPath, 0, stRow, stCol, numOfKTfound);
+                // printPath(board, path);
 
+                // System.out.println("Finding new tour ...");
                 // change path and stack
                 path.remove(path.size() - 1);
                 stack.pop();
                 board.unmarkNode(curNode[0], curNode[1]);
+                // push start node to stack
+                // stack.push(new int[] {stRow, stCol});
+                // increase number of iteration
                 iter++;
                 continue;
             }
@@ -473,17 +514,25 @@ public class KnightsTour {
             if ( isAlive(board, curNode[0], curNode[1], ST) ) {
                 // find its neighbors
                 ArrayList<int[]> nbrs = board.getNeighbors(curNode[0], curNode[1]);
+                // System.out.println("Neighbors are: ");
+                // printArrList(nbrs);
                 // reorder its neighbors accord. to requirements
                 nbrs = reorderNbrs(board, nbrs, ST);
                 // push its neighbors into stack
                 stack.addAll(nbrs);
+                // System.out.println("Iteration: " + iter);
+                // System.out.println("Current new path is:");
+                // printPath(board,path);
                 iter++;
             } else {
                 // failure
+                // System.out.println("Fail!");
                 stack.pop();
                 path.remove(path.size() - 1);
                 board.unmarkNode(curNode[0], curNode[1]);
             }
+            // start new loop
+            // iter++;
         }
         // No closed knight tour found
 
@@ -495,7 +544,7 @@ public class KnightsTour {
         // initialize parameters
         int dimension = 8;
         int[] startNode = {1,2};
-        int ST = 1;
+        int ST = 6;
         int numIter = 1000000;
         int numOfRuns = 30;
         int numOfFoundList[] = new int[numOfRuns];
