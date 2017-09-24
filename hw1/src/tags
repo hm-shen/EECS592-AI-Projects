@@ -6,43 +6,129 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 Chessboard	KnightsTour.java	/^        public Chessboard(int n) {$/;"	m	class:KnightsTour.Chessboard
 Chessboard	KnightsTour.java	/^    public static class Chessboard {$/;"	c	class:KnightsTour
+Chessboard	KnightsTour_old.java	/^        public Chessboard(int n) {$/;"	m	class:KnightsTour.Chessboard
+Chessboard	KnightsTour_old.java	/^    public static class Chessboard {$/;"	c	class:KnightsTour
 KnightsTour	KnightsTour.java	/^public class KnightsTour {$/;"	c
+KnightsTour	KnightsTour_old.java	/^public class KnightsTour {$/;"	c
+Test	Test.java	/^public class Test {$/;"	c
 boardFlags	KnightsTour.java	/^        boolean[][] boardFlags;$/;"	f	class:KnightsTour.Chessboard
+boardFlags	KnightsTour_old.java	/^        boolean[][] boardFlags;$/;"	f	class:KnightsTour.Chessboard
+boxPlot	libUtils.py	/^        savePath=None, display=False):$/;"	f
+boxPlot	plotRst.py	/^def boxPlot(listOfData, plotTitle=None, xLabel=None, yLabel=None, savePath=None, display=False):$/;"	f
+center	plotRst.py	/^    center = np.ones(25) * 50$/;"	v
 clearBoard	KnightsTour.java	/^        public void clearBoard() {$/;"	m	class:KnightsTour.Chessboard
+clearBoard	KnightsTour_old.java	/^        public void clearBoard() {$/;"	m	class:KnightsTour.Chessboard
+data	cmptStats.py	/^        data = [float(ele) for ele in data]$/;"	v
+data	cmptStats.py	/^        data = utl.readCSV(dataPath)$/;"	v
+data	libUtils.py	/^        data = [float(ele) for ele in data]$/;"	v
+data	libUtils.py	/^        data = readCSV(dataPath)$/;"	v
+data	plotRst.py	/^    data = np.concatenate((spread, center, flier_high, flier_low), 0)$/;"	v
+dataChoices	cmptStats.py	/^    dataChoices = [0,1,2,3,4,5,6]$/;"	v
+dataChoices	libUtils.py	/^    dataChoices = [0,1,2,3,4,5,6]$/;"	v
+dataFolder	cmptStats.py	/^    dataFolder = '..\/outputs\/'$/;"	v
+dataFolder	libUtils.py	/^    dataFolder = '..\/outputs\/'$/;"	v
+dataMovPerSec	cmptStats.py	/^    dataMovPerSec = [0] * len(dataChoices)$/;"	v
+dataName	cmptStats.py	/^    dataName = ['testRstNum', 'testRstTime']$/;"	v
+dataName	libUtils.py	/^    dataName = ['testRstNum', 'testRstTime']$/;"	v
+dataNum	cmptStats.py	/^    dataNum = [0] * len(dataChoices)$/;"	v
+dataNum	libUtils.py	/^    dataNum = [0] * len(dataChoices)$/;"	v
+dataPath	cmptStats.py	/^        dataPath = dataFolder + dataName[0] + str(index) + '.csv'$/;"	v
+dataPath	cmptStats.py	/^        dataPath = dataFolder + dataName[1] + str(index) + '.csv'$/;"	v
+dataPath	libUtils.py	/^        dataPath = dataFolder + dataName[0] + str(index) + '.csv'$/;"	v
+dataSolsPerSec	cmptStats.py	/^    dataSolsPerSec = [0] * len(dataChoices)$/;"	v
+dataTime	cmptStats.py	/^    dataTime = [0] * len(dataChoices)$/;"	v
+dataTime	libUtils.py	/^    dataTime = [0] * len(dataChoices)$/;"	v
 dim	KnightsTour.java	/^        int dim;$/;"	f	class:KnightsTour.Chessboard
+dim	KnightsTour_old.java	/^        int dim;$/;"	f	class:KnightsTour.Chessboard
 distToCorner	KnightsTour.java	/^        public int distToCorner(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+distToCorner	KnightsTour_old.java	/^        public int distToCorner(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+fig1	cmptStats.py	/^            yLabel='Number of closed Knights\\' tour found', display=False)$/;"	v
+fig2	cmptStats.py	/^            yLabel='Total time used for each run', display=False)$/;"	v
+fig3	cmptStats.py	/^            yLabel='Moves per second', display=False)$/;"	v
+fig4	cmptStats.py	/^            yLabel='Solutions per second', display=False)$/;"	v
 fixedDeg	KnightsTour.java	/^        int[][] fixedDeg;$/;"	f	class:KnightsTour.Chessboard
+fixedDeg	KnightsTour_old.java	/^        int[][] fixedDeg;$/;"	f	class:KnightsTour.Chessboard
+flier_high	plotRst.py	/^    flier_high = np.random.rand(10) * 100 + 100$/;"	v
+flier_low	plotRst.py	/^    flier_low = np.random.rand(10) * -100$/;"	v
 getDim	KnightsTour.java	/^        public int getDim() { return dim; }$/;"	m	class:KnightsTour.Chessboard
-getDynDegOfNeighbors	KnightsTour.java	/^        public int[] getDynDegOfNeighbors(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+getDim	KnightsTour_old.java	/^        public int getDim() { return dim; }$/;"	m	class:KnightsTour.Chessboard
+getDynDegOfNeighbors	KnightsTour.java	/^        public int[] getDynDegOfNeighbors(ArrayList<int[]> nbrs) {$/;"	m	class:KnightsTour.Chessboard
+getDynDegOfNeighbors	KnightsTour_old.java	/^        public int[] getDynDegOfNeighbors(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
 getDynamicDeg	KnightsTour.java	/^        public int getDynamicDeg(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+getDynamicDeg	KnightsTour_old.java	/^        public int getDynamicDeg(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+getFixDeg	KnightsTour.java	/^        public int getFixDeg(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
 getNeighbors	KnightsTour.java	/^        public ArrayList<int[]> getNeighbors(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
-isAlive	KnightsTour.java	/^    static boolean isAlive(Chessboard board, int row, int col, int ST) {$/;"	m	class:KnightsTour
+getNeighbors	KnightsTour_old.java	/^        public ArrayList<int[]> getNeighbors(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+isAlive	KnightsTour.java	/^    static ArrayList<int[]> isAlive(Chessboard board, int row, int col, int ST) {$/;"	m	class:KnightsTour
+isAlive	KnightsTour_old.java	/^    static boolean isAlive(Chessboard board, int row, int col, int ST) {$/;"	m	class:KnightsTour
 isDone	KnightsTour.java	/^    static boolean isDone(Chessboard board, int curRow, int curCol, int stRow,$/;"	m	class:KnightsTour
+isDone	KnightsTour_old.java	/^    static boolean isDone(Chessboard board, int curRow, int curCol, int stRow,$/;"	m	class:KnightsTour
 isFullMarked	KnightsTour.java	/^        public boolean isFullMarked() {$/;"	m	class:KnightsTour.Chessboard
+isFullMarked	KnightsTour_old.java	/^        public boolean isFullMarked() {$/;"	m	class:KnightsTour.Chessboard
 isReachable	KnightsTour.java	/^        public boolean isReachable(int row1, int col1, int row2, int col2) {$/;"	m	class:KnightsTour.Chessboard
+isReachable	KnightsTour_old.java	/^        public boolean isReachable(int row1, int col1, int row2, int col2) {$/;"	m	class:KnightsTour.Chessboard
 isValidPos	KnightsTour.java	/^        public boolean isValidPos (int row,int col) {$/;"	m	class:KnightsTour.Chessboard
+isValidPos	KnightsTour_old.java	/^        public boolean isValidPos (int row,int col) {$/;"	m	class:KnightsTour.Chessboard
+listOfData	plotRst.py	/^    listOfData = [data, data]$/;"	v
 main	KnightsTour.java	/^    public static void main(String[] args)$/;"	m	class:KnightsTour
+main	KnightsTour_old.java	/^    public static void main(String[] args)$/;"	m	class:KnightsTour
+main	Test.java	/^    public static void main(String[] args) {$/;"	m	class:Test
 main	test.java	/^    public static void main(String[] args)$/;"	m	class:test
 markNode	KnightsTour.java	/^        public void markNode(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+markNode	KnightsTour_old.java	/^        public void markNode(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
 mean	KnightsTour.java	/^    static double mean(int[] m) {$/;"	m	class:KnightsTour
+mean	KnightsTour_old.java	/^    static double mean(int[] m) {$/;"	m	class:KnightsTour
+movesPerSecMean	cmptStats.py	/^    movesPerSecMean = [0] * len(dataChoices)$/;"	v
+movesPerSecMedian	cmptStats.py	/^    movesPerSecMedian = [0] * len(dataChoices)$/;"	v
+movesPerSecStd	cmptStats.py	/^    movesPerSecStd = [0] * len(dataChoices)$/;"	v
 northEast	KnightsTour.java	/^        int northEast[] = {0, dim-1};$/;"	f	class:KnightsTour.Chessboard
+northEast	KnightsTour_old.java	/^        int northEast[] = {0, dim-1};$/;"	f	class:KnightsTour.Chessboard
 northWest	KnightsTour.java	/^        int northWest[] = {0,0};$/;"	f	class:KnightsTour.Chessboard
+northWest	KnightsTour_old.java	/^        int northWest[] = {0,0};$/;"	f	class:KnightsTour.Chessboard
+numMean	cmptStats.py	/^    numMean = [0] * len(dataChoices)$/;"	v
+numMedian	cmptStats.py	/^    numMedian = [0] * len(dataChoices)$/;"	v
+numStd	cmptStats.py	/^    numStd = [0] * len(dataChoices)$/;"	v
 oneDegDom	KnightsTour.java	/^    static ArrayList<int[]> oneDegDom(Chessboard board,$/;"	m	class:KnightsTour
-printArrList	KnightsTour.java	/^    static void printArrList(ArrayList<int[]> arrList) {$/;"	m	class:KnightsTour
+oneDegDom	KnightsTour_old.java	/^    static ArrayList<int[]> oneDegDom(Chessboard board,$/;"	m	class:KnightsTour
+printArrList	KnightsTour_old.java	/^    static void printArrList(ArrayList<int[]> arrList) {$/;"	m	class:KnightsTour
 printArrList	test.java	/^    public static void printArrList(ArrayList<int[]> arrList)$/;"	m	class:test
 printPath	KnightsTour.java	/^    static void printPath(Chessboard board, ArrayList<int[]> arrList) {$/;"	m	class:KnightsTour
+printPath	KnightsTour_old.java	/^    static void printPath(Chessboard board, ArrayList<int[]> arrList) {$/;"	m	class:KnightsTour
 randomSortAccordDynDeg	KnightsTour.java	/^    static ArrayList<int[]> randomSortAccordDynDeg(Chessboard board,$/;"	m	class:KnightsTour
+randomSortAccordDynDeg	KnightsTour_old.java	/^    static ArrayList<int[]> randomSortAccordDynDeg(Chessboard board,$/;"	m	class:KnightsTour
 randomSortAccordFixDeg	KnightsTour.java	/^    static ArrayList<int[]> randomSortAccordFixDeg(Chessboard board,$/;"	m	class:KnightsTour
+randomSortAccordFixDeg	KnightsTour_old.java	/^    static ArrayList<int[]> randomSortAccordFixDeg(Chessboard board,$/;"	m	class:KnightsTour
+readCSV	libUtils.py	/^def readCSV(path, delimitMark=',', quoteMark='|', display=False):$/;"	f
 reorderNbrs	KnightsTour.java	/^    static ArrayList<int[]> reorderNbrs(Chessboard board, ArrayList<int[]> candNodes, int ST) {$/;"	m	class:KnightsTour
+reorderNbrs	KnightsTour_old.java	/^    static ArrayList<int[]> reorderNbrs(Chessboard board, ArrayList<int[]> candNodes, int ST) {$/;"	m	class:KnightsTour
+runTests	KnightsTour.java	/^    static void runTests(int dimension, int[] startNode, int[] candST,$/;"	m	class:KnightsTour
 shuffleArrList	test.java	/^    public static void shuffleArrList(ArrayList<int[]> arrList)$/;"	m	class:test
+solsPerSecMean	cmptStats.py	/^    solsPerSecMean = [0] * len(dataChoices)$/;"	v
+solsPerSecMedian	cmptStats.py	/^    solsPerSecMedian = [0] * len(dataChoices)$/;"	v
+solsPerSecStd	cmptStats.py	/^    solsPerSecStd = [0] * len(dataChoices)$/;"	v
 solveKT	KnightsTour.java	/^    static int solveKT(Chessboard board, int stRow, int stCol, int ST,$/;"	m	class:KnightsTour
+solveKT	KnightsTour_old.java	/^    static int solveKT(Chessboard board, int stRow, int stCol, int ST,$/;"	m	class:KnightsTour
 sortAccordDynDeg	KnightsTour.java	/^    static ArrayList<int[]> sortAccordDynDeg(Chessboard board,$/;"	m	class:KnightsTour
+sortAccordDynDeg	KnightsTour_old.java	/^    static ArrayList<int[]> sortAccordDynDeg(Chessboard board,$/;"	m	class:KnightsTour
 sortAccordDynDegAndDistToCorner	KnightsTour.java	/^    static ArrayList<int[]> sortAccordDynDegAndDistToCorner(Chessboard board,$/;"	m	class:KnightsTour
+sortAccordDynDegAndDistToCorner	KnightsTour_old.java	/^    static ArrayList<int[]> sortAccordDynDegAndDistToCorner(Chessboard board,$/;"	m	class:KnightsTour
 sortAccordFixDeg	KnightsTour.java	/^    static ArrayList<int[]> sortAccordFixDeg(Chessboard board,$/;"	m	class:KnightsTour
+sortAccordFixDeg	KnightsTour_old.java	/^    static ArrayList<int[]> sortAccordFixDeg(Chessboard board,$/;"	m	class:KnightsTour
 southEast	KnightsTour.java	/^        int southEast[] = {dim-1, dim-1};$/;"	f	class:KnightsTour.Chessboard
+southEast	KnightsTour_old.java	/^        int southEast[] = {dim-1, dim-1};$/;"	f	class:KnightsTour.Chessboard
 southWest	KnightsTour.java	/^        int southWest[] = {dim-1, 0};$/;"	f	class:KnightsTour.Chessboard
+southWest	KnightsTour_old.java	/^        int southWest[] = {dim-1, 0};$/;"	f	class:KnightsTour.Chessboard
+spread	plotRst.py	/^    spread = np.random.rand(50) * 100$/;"	v
 test	test.java	/^public class test$/;"	c
+timeMean	cmptStats.py	/^    timeMean = [0] * len(dataChoices)$/;"	v
+timeMedian	cmptStats.py	/^    timeMedian = [0] * len(dataChoices)$/;"	v
+timeStd	cmptStats.py	/^    timeStd = [0] * len(dataChoices)$/;"	v
+totalMoves	cmptStats.py	/^    totalMoves = 1000000$/;"	v
 unmarkNode	KnightsTour.java	/^        public void unmarkNode(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
+unmarkNode	KnightsTour_old.java	/^        public void unmarkNode(int row, int col) {$/;"	m	class:KnightsTour.Chessboard
 writePathToFile	KnightsTour.java	/^    static void writePathToFile(Chessboard board, ArrayList<int[]> path, $/;"	m	class:KnightsTour
+writePathToFile	KnightsTour_old.java	/^    static void writePathToFile(Chessboard board, ArrayList<int[]> path, $/;"	m	class:KnightsTour
 xDelta	KnightsTour.java	/^        int xDelta[] = {2, 1, -1, -2, -2, -1, 1, 2};$/;"	f	class:KnightsTour.Chessboard
+xDelta	KnightsTour_old.java	/^        int xDelta[] = {2, 1, -1, -2, -2, -1, 1, 2};$/;"	f	class:KnightsTour.Chessboard
 yDelta	KnightsTour.java	/^        int yDelta[] = {1, 2, 2, 1, -1, -2, -2, -1};$/;"	f	class:KnightsTour.Chessboard
+yDelta	KnightsTour_old.java	/^        int yDelta[] = {1, 2, 2, 1, -1, -2, -2, -1};$/;"	f	class:KnightsTour.Chessboard

@@ -14,6 +14,30 @@ def readCSV(path, delimitMark=',', quoteMark='|', display=False):
             data = data + ele
     return data
 
+def lineChart(listOfData, listOfStyles, listOfLabels, plotTitle=None, xLabel=None, yLabel=None,\
+        savePath=None, xMin=None, xMax=None, yMin=None, yMax=None, display=False):
+
+    fig = plt.figure()
+    ax = plt.gca()
+    for ind, data in enumerate(listOfData) :
+        plt.plot(data, listOfStyles[ind], label=listOfLabels[ind])
+    ax.set_xlim(xmin=xMin, xmax=xMax)
+    ax.set_ylim(ymin=xMin, ymax=xMax)
+    if plotTitle is not None :
+        plt.title(plotTitle)
+    if listOfLabels is not None :
+        plt.legend()
+    if xLabel is not None :
+        plt.xlabel(xLabel)
+    if yLabel is not None :
+        plt.ylabel(yLabel)
+    if savePath is not None :
+        plt.savefig(savePath)
+    if display :
+        plt.show()
+
+    return fig
+
 '''
 Description: Serveral statistics of each column of the input data sets are
              calculated and displayed as box plot.
@@ -22,11 +46,14 @@ fig:         figure object
 '''
 
 def boxPlot(listOfData, plotTitle=None, xLabel=None, yLabel=None,\
-        savePath=None, display=False):
+        savePath=None, xMin=None, xMax=None, yMin=None, yMax=None, display=False):
 
     # multiple box plots on one figure
     fig = plt.figure()
+    ax = plt.gca()
     plt.boxplot(listOfData)
+    ax.set_xlim(xmin=xMin, xmax=xMax)
+    ax.set_ylim(ymin=xMin, ymax=xMax)
     if plotTitle is not None :
         plt.title(plotTitle)
     if xLabel is not None :
@@ -34,7 +61,7 @@ def boxPlot(listOfData, plotTitle=None, xLabel=None, yLabel=None,\
     if yLabel is not None :
         plt.ylabel(yLabel)
     if savePath is not None :
-        plt.savefig("savePath")
+        plt.savefig(savePath)
     if display :
         plt.show()
 

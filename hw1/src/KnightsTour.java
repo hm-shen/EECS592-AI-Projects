@@ -139,8 +139,8 @@ public class KnightsTour {
             boardFlags[row][col] = false;
         }
 
-        public int[] getDynDegOfNeighbors(int row, int col) {
-            ArrayList<int[]> nbrs = getNeighbors(row, col);
+        public int[] getDynDegOfNeighbors(ArrayList<int[]> nbrs) {
+            // ArrayList<int[]> nbrs = getNeighbors(row, col);
             int[] dynDegList = new int[nbrs.size()];
             for (int ind = 0; ind < nbrs.size(); ind++) {
                 int[] tmp = nbrs.get(ind);
@@ -150,17 +150,44 @@ public class KnightsTour {
         }
     }
 
-    static boolean isAlive(Chessboard board, int row, int col, int ST) {
+    // static boolean isAlive(Chessboard board, int row, int col, int ST) {
+    //     // get degree of this node
+    //     if (ST == 0 || ST == 1 || ST == 2 || ST == 4 || ST == 6) {
+    //         ArrayList<int[]> nbrs = board.getNeighbors(row, col);
+    //         if (nbrs.size() > 0) {return true;} else {return false;}
+    //     } else if (ST == 3 || ST == 5) {
+    //         // get degree of this node
+    //         ArrayList<int[]> nbrs = board.getNeighbors(row, col);
+    //         int deg = nbrs.size();
+    //         // get dynDeg
+    //         int[] dynDegList = board.getDynDegOfNeighbors(row, col);
+    //         // get number of 1s in dynamic degree
+    //         int numOfOne = 0;
+    //         for (int ind = 0; ind < dynDegList.length; ind++) {
+    //             if (dynDegList[ind] == 1)
+    //                 numOfOne++;
+    //         }
+    //         if (numOfOne > 1 || deg == 0) {
+    //             return false;
+    //         } else { return true; }
+    //     } else {
+    //         System.out.println("rules are not supported at this time!");
+    //         System.exit(0);
+    //         return false;
+    //     }
+    // }
+
+    static ArrayList<int[]> isAlive(Chessboard board, int row, int col, int ST) {
         // get degree of this node
         if (ST == 0 || ST == 1 || ST == 2 || ST == 4 || ST == 6) {
             ArrayList<int[]> nbrs = board.getNeighbors(row, col);
-            if (nbrs.size() > 0) {return true;} else {return false;}
+            return nbrs;
         } else if (ST == 3 || ST == 5) {
             // get degree of this node
             ArrayList<int[]> nbrs = board.getNeighbors(row, col);
             int deg = nbrs.size();
             // get dynDeg
-            int[] dynDegList = board.getDynDegOfNeighbors(row, col);
+            int[] dynDegList = board.getDynDegOfNeighbors(nbrs);
             // get number of 1s in dynamic degree
             int numOfOne = 0;
             for (int ind = 0; ind < dynDegList.length; ind++) {
@@ -168,12 +195,14 @@ public class KnightsTour {
                     numOfOne++;
             }
             if (numOfOne > 1 || deg == 0) {
-                return false;
-            } else { return true; }
+                nbrs.clear();
+                return nbrs;
+            } else { return nbrs; }
         } else {
             System.out.println("rules are not supported at this time!");
             System.exit(0);
-            return false;
+            ArrayList<int[]> nbrs = new ArrayList<int[]>();
+            return nbrs;
         }
     }
 
@@ -459,7 +488,7 @@ public class KnightsTour {
             // check if done
             if (isDone(board, curNode[0], curNode[1], stRow, stCol, path)) {
                 numOfKTfound++;
-                writePathToFile(board, path, outPath, 0, stRow, stCol, numOfKTfound);
+                // writePathToFile(board, path, outPath, 0, stRow, stCol, numOfKTfound);
 
                 // change path and stack
                 path.remove(path.size() - 1);
@@ -469,10 +498,10 @@ public class KnightsTour {
                 continue;
             }
 
+            // find its neighbors
+            ArrayList<int[]> nbrs = isAlive(board, curNode[0], curNode[1], ST);
             // judge if failure / alive
-            if ( isAlive(board, curNode[0], curNode[1], ST) ) {
-                // find its neighbors
-                ArrayList<int[]> nbrs = board.getNeighbors(curNode[0], curNode[1]);
+            if (nbrs.size() > 0) {
                 // reorder its neighbors accord. to requirements
                 nbrs = reorderNbrs(board, nbrs, ST);
                 // push its neighbors into stack
@@ -538,8 +567,8 @@ public class KnightsTour {
         // initialize parameters
         int dimension = 8;
         int[] startNode = {1,2};
-        int ST = 4;
-        int[] candST = {0,1,2,3,4,5,6};
+        int ST = 5;
+        int[] candST = {1};
         int numIter = 1000000;
         int numOfRuns = 30;
         int numOfFoundList[] = new int[numOfRuns];
@@ -562,9 +591,13 @@ public class KnightsTour {
         //         System.exit(0);
         //     }
 
+        //     double stTime = System.currentTimeMillis();
         //     int numOfKTfound = solveKT(board, startNode[0], startNode[1], ST,
         //             numIter, outputPath);
+        //     double edTime = System.currentTimeMillis();
+        //     double timeTaken = (edTime - stTime) / 1000; 
         //     System.out.println(numOfKTfound + " knights' tour are found in total");
+        //     System.out.println("Total time used: " + timeTaken);
         //     numOfFoundList[ind] = numOfKTfound;
         // }
 
