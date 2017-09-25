@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class KnightsTour {
     public static class Chessboard {
@@ -149,6 +150,33 @@ public class KnightsTour {
         }
     }
 
+    // static boolean isAlive(Chessboard board, int row, int col, int ST) {
+    //     // get degree of this node
+    //     if (ST == 0 || ST == 1 || ST == 2 || ST == 4 || ST == 6) {
+    //         ArrayList<int[]> nbrs = board.getNeighbors(row, col);
+    //         if (nbrs.size() > 0) {return true;} else {return false;}
+    //     } else if (ST == 3 || ST == 5) {
+    //         // get degree of this node
+    //         ArrayList<int[]> nbrs = board.getNeighbors(row, col);
+    //         int deg = nbrs.size();
+    //         // get dynDeg
+    //         int[] dynDegList = board.getDynDegOfNeighbors(row, col);
+    //         // get number of 1s in dynamic degree
+    //         int numOfOne = 0;
+    //         for (int ind = 0; ind < dynDegList.length; ind++) {
+    //             if (dynDegList[ind] == 1)
+    //                 numOfOne++;
+    //         }
+    //         if (numOfOne > 1 || deg == 0) {
+    //             return false;
+    //         } else { return true; }
+    //     } else {
+    //         System.out.println("rules are not supported at this time!");
+    //         System.exit(0);
+    //         return false;
+    //     }
+    // }
+
     static ArrayList<int[]> isAlive(Chessboard board, int row, int col, int ST) {
         // get degree of this node
         if (ST == 0 || ST == 1 || ST == 2 || ST == 4 || ST == 6) {
@@ -279,6 +307,52 @@ public class KnightsTour {
         return sortedCandNode;
     }
 
+    static ArrayList<int[]> sortAccordFixDeg(Chessboard board,
+            ArrayList<int[]> candNodes) {
+        int length = candNodes.size();
+        ArrayList<int[]> sortedCandNode = new ArrayList<int[]>();
+        // get fix deg of each node in candNodes
+        int[][] composedList = new int[length][3];
+        // get fixed degree
+        for (int ind = 0; ind < candNodes.size(); ind++) {
+            int[] node = candNodes.get(ind);
+            int fixDeg = board.fixedDeg[node[0]][node[1]];
+            composedList[ind] = new int[] {fixDeg, node[0], node[1]};
+        }
+        // complete argsort in decreasing order
+        Arrays.sort(composedList, (o1, o2) -> o2[0] - o1[0]);
+        // fill in the sortedCandNode ArrayList
+        for (int ind = 0; ind < candNodes.size(); ind++) {
+            int[] tup = composedList[ind];
+            sortedCandNode.add(new int[] {tup[1],tup[2]});
+        }
+        return sortedCandNode;
+    }
+
+    static ArrayList<int[]> sortAccordDynDeg(Chessboard board,
+            ArrayList<int[]> candNodes) {
+        int length = candNodes.size();
+        ArrayList<int[]> sortedCandNode = new ArrayList<int[]>(length);
+        // get fix deg of each node in candNodes
+        int[][] composedList = new int[length][3];
+        // get fixed degree
+        for (int ind = 0; ind < candNodes.size(); ind++) {
+            int[] node = candNodes.get(ind);
+            int dynDeg = board.getDynamicDeg(node[0], node[1]);
+            // if (dynDeg == 0)
+            //     dynDeg = dynDeg + 8;
+            composedList[ind] = new int[] {dynDeg, node[0], node[1]};
+        }
+        // complete argsort in decreasing order
+        Arrays.sort(composedList, (o1, o2) -> o2[0] - o1[0]);
+        // fill in the sortedCandNode ArrayList
+        for (int ind = 0; ind < candNodes.size(); ind++) {
+            int[] tup = composedList[ind];
+            sortedCandNode.add(new int[] {tup[1],tup[2]});
+        }
+        return sortedCandNode;
+    }
+
     static ArrayList<int[]> oneDegDom(Chessboard board,
             ArrayList<int[]> candNodes) {
         int numOfOne = 0;
@@ -329,6 +403,21 @@ public class KnightsTour {
         return candNodes;
     }
 
+    static void printPath(Chessboard board, ArrayList<int[]> arrList) {
+        int[][] pathGrid = new int[board.dim][board.dim];
+        for (int ind = 0; ind < arrList.size(); ind++) {
+            int[] tmp = arrList.get(ind);
+            pathGrid[tmp[0]][tmp[1]] = ind;
+        }
+        for (int i = 0; i < board.dim; i++) {
+            System.out.print("|");
+            for (int j = 0; j < board.dim; j++) {
+                System.out.print(pathGrid[i][j] + "\t" + "|");
+            }
+            System.out.print("\n");
+        }
+    }
+
     static boolean isDone(Chessboard board, int curRow, int curCol, int stRow,
             int stCol, ArrayList<int[]> path) {
         // check if path is full
@@ -337,6 +426,33 @@ public class KnightsTour {
                 // && (board.getDynamicDeg(curRow, curCol) == 1)) {
             return true; 
         } else { return false; }
+    }
+
+    static void writePathToFile(Chessboard board, ArrayList<int[]> path, 
+            String fileName, int ST, int stRow, int stCol, int numOfKTfound) {
+        try{
+            PrintWriter writer = new PrintWriter(new FileOutputStream(
+                        new File(fileName), true));
+            writer.printf("%03d:", numOfKTfound);
+            for (int ind = 0; ind < path.size(); ind++) {
+                int[] pos = path.get(ind);
+                writer.print((pos[0]+1) + "," + (pos[1]+1) + " ");
+            }
+            writer.printf("%d,%d ", (stRow+1), (stCol+1));
+            writer.print("\n");
+            writer.close();
+        } catch (IOException ioe) {
+            System.err.println("IOException: " + ioe.getMessage());
+            System.exit(0);
+        }
+    }
+
+    static double mean(int[] m) {
+        double sum = 0;
+        for (int i = 0; i < m.length; i++) {
+            sum += m[i];
+        }
+        return sum / m.length;
     }
 
     static int solveKT(Chessboard board, int stRow, int stCol, int ST,
@@ -373,6 +489,8 @@ public class KnightsTour {
             // check if done
             if (isDone(board, curNode[0], curNode[1], stRow, stCol, path)) {
                 numOfKTfound++;
+                // writePathToFile(board, path, outPath, 0, stRow, stCol, numOfKTfound);
+
                 // change path and stack
                 path.remove(path.size() - 1);
                 stack.pop();
@@ -420,7 +538,26 @@ public class KnightsTour {
                 double timeTaken = edTime - stTime; 
                 numAndTime[0][jnd] = (double)numOfKTfound;
                 numAndTime[1][jnd] = timeTaken / 1000.0;
-                System.out.println(numOfKTfound + " solutions found!");
+            }
+        // write num and time to csv file
+            try {
+                FileWriter count_writer = new FileWriter("../outputs/testRstNum" 
+                        + candST[ind] + ".csv");
+                FileWriter time_writer = new FileWriter("../outputs/testRstTime" 
+                        + candST[ind] + ".csv");
+                for (int j = 0; j < (numOfRuns-1); j++) {
+                    count_writer.append(String.valueOf(numAndTime[0][j]));
+                    time_writer.append(String.valueOf(numAndTime[1][j]));
+                    count_writer.append(",");
+                    time_writer.append(",");
+                }
+                count_writer.append(String.valueOf(numAndTime[0][numOfRuns-1]));
+                time_writer.append(String.valueOf(numAndTime[1][numOfRuns-1]));
+                count_writer.close();
+                time_writer.close();
+            } catch (IOException ioe) {
+                System.err.println("IOException: " + ioe.getMessage());
+                System.exit(0);
             }
         }
     }
@@ -432,12 +569,42 @@ public class KnightsTour {
         int dimension = 8;
         int[] startNode = {1,2};
         int ST = 6;
-        int[] candST = {5};
+        int[] candST = {0,2,3,4,5,6};
         int numIter = 1000000;
         int numOfRuns = 30;
         int numOfFoundList[] = new int[numOfRuns];
         String outputPath = "../outputs/paths-" + ST + ".txt";
 
         runTests(dimension, startNode, candST, numIter, numOfRuns, outputPath);
+
+        // for (int ind = 0; ind < numOfRuns; ind ++) {
+        //     // create chessboard obj
+        //     Chessboard board = new Chessboard(dimension);
+
+        //     // create output file
+        //     try{
+        //         PrintWriter writer = new PrintWriter(outputPath);
+        //         writer.println("KT: " + board.dim + "x" + board.dim + ", strategy = " 
+        //                 + ST + ", start = " + (startNode[0]+1) + "," + (startNode[1]+1) + "\n");
+        //         writer.close();
+        //     } catch (IOException ioe) {
+        //         System.err.println("IOException: " + ioe.getMessage());
+        //         System.exit(0);
+        //     }
+
+        //     double stTime = System.currentTimeMillis();
+        //     int numOfKTfound = solveKT(board, startNode[0], startNode[1], ST,
+        //             numIter, outputPath);
+        //     double edTime = System.currentTimeMillis();
+        //     double timeTaken = (edTime - stTime) / 1000; 
+        //     System.out.println(numOfKTfound + " knights' tour are found in total");
+        //     System.out.println("Total time used: " + timeTaken);
+        //     numOfFoundList[ind] = numOfKTfound;
+        // }
+
+        // double meanNumOfFound = mean(numOfFoundList);
+        // System.out.println("Average number of founded knight's tour: " + meanNumOfFound);
+
+
     }
 }

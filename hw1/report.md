@@ -85,6 +85,14 @@ distance to any of the four corners.
 
 ## Statistics of each strategy
 
+**Note**: 
+
+- Statistics of strategy $0$ which almost couldn't find any solutions in each 
+  run are not included in the following discussion.
+- Strategy $6$ which is an extra strategy is compared with strategy $1$ to $5$.
+- All the strategies are run for $1000000$ states. So, the statistics of number 
+  of moves are not shown below. 
+
 <!--
 ![Number of solutions found for each 
 heuristic](./outputs/cmp_num_of_sols_box.png){#fig:numbox width=80%}
@@ -116,9 +124,11 @@ heuristic](./outputs/cmp_sols_per_sec_box.png){width=80%}
 Median)](./outputs/cmp_sols_per_sec_line.png){width=80%}
 -->
 
+### Number of solution found
+
 <div id="fig:numofsols">
-![Number of solutions found for each 
-heuristic](./outputs/cmp_num_of_sols_box.png){#fig:numbox width=50%}
+![Number of solutions found for each heuristic
+(box plot)](./outputs/cmp_num_of_sols_box.png){#fig:numbox width=50%}
 ![Number of solutions found for each heuristic (Mean, Standard Deviation and 
 Median)](./outputs/cmp_num_of_sols_line.png){#fig:numline width=50%}
 
@@ -133,15 +143,25 @@ Statistics of number of solutions found
 | Std          |      1426.05 |      1421.61 |      1716.08 |      9131.67 |      8768.17 |            0 |
 | Median       |         1418 |       2428.5 |         3944 |        21019 |      62474.5 |         4796 |
 
-From the Figure (\ref{fig:numofsols}), we can see that the number of closed 
-tour solutions given by strategy $0$ to $5$ increases slowly at first and then 
-boosts later. This kind of behavior has not surprised me. Strategy $0$ which 
-applies blind search strategy almost cannot find a single closed Knights' Tour. 
-All the informed search (from strategy $1$ to strategy $5$) are better than 
-strategy $0$ because all of the heuristics are effective. Strategy $1$ which 
-only relies on the fixed degree gets less results on average compared to 
-strategy $3,4,5$ because it cannot avoid dead ends as strategy $3,4,5$ do. The 
-detailed analysis of each strategy is given in section \ref{sec:cmpstgy}. 
+From the Figure (\ref{fig:numofsols}), we can see that the number of closed tour 
+solutions given by strategy $1$ to $5$ increases slowly at first and then boosts 
+later. This kind of behavior has not surprised me. Strategy $0$ which applies 
+blind search strategy almost cannot find a single closed Knights' Tour. All the 
+informed search (from strategy $1$ to strategy $5$) are better than strategy $0$ 
+because all of the heuristics applied are effective. Strategy $1$ which only 
+relies on the fixed degree gets less results on average compared to strategy 
+$3,4,5$ because it cannot avoid dead ends as strategy $3,4,5$ do. The extra 
+strategy $6$ always gives the same ordering each time because it will break the 
+tie by favoring the square with the smallest manhattan distance to $4$ corners. 
+The heuristic applied by strategy $6$ helps by walk through nodes in corners 
+first. However, strategy $6$ cannot avoid many dead ends as strategy $4$ and 
+$5$. That's why statistics in table show that strategy $6$ is better than 
+strategy $1$ to $3$ but not as good as strategy $4$ and $5$. The detailed 
+analysis of each strategy is given in section \ref{sec:cmpstgy}. 
+
+\clearpage
+
+### Time used for each run
 
 <div id="fig:timeused">
 ![Time used for each heuristic](./outputs/cmp_time_used_box.png){width=50%}
@@ -163,7 +183,13 @@ From figure (\ref{fig:timeused}), we can see that strategy $5$ are the
 slowest.The reason of this is combining strategy $2$ to $4$ requires more time 
 to query and update the dynamic degree of the neighbors. To the contrary, 
 methods based on fix degree generally requires less time to run because getting 
-the fix degree of a neighbor in graph only needs constant time.
+the fix degree of a neighbor in graph only needs constant time. Strategy $4$ is 
+faster than strategy $3$ and $5$ because it does not need to do as much backups 
+as strategy $3$ and $5$ would do.
+
+\clearpage
+
+### Moves per second
 
 <div id="fig:movpersec">
 ![Moves per second for each 
@@ -188,12 +214,16 @@ in total, strategy $1$ has the highest number of moves in one second. This is
 reasonable in the sense that strategy add nodes to path without too much 
 thoughts compared to strategy $5$. The smaller the number of moves are made in 
 one second, the larger the number of backtracks are made. This explains why 
-strategy $3$ and $5$ move less (because when multiple neighbors having dynamic 
-degree $1$ are detected, they start to backtrack). Strategy $4$ which 
-directly discard siblings of neighbors with dynamic degree $1$ does not need to 
-do many backtracks and therefore moves a lot in each second. But those moves 
-are "smarter" compared to strategy $1$ because they can help to avoid lots of 
-dead ends. (details are explained in section \ref{sec:cmpstgy})
+strategy $3$ and $5$ move less (because once multiple neighbors having dynamic 
+degree $1$ are detected, they start to backtrack). Strategy $4$ which directly 
+discard siblings of neighbors with dynamic degree $1$ does not need to do many 
+backtracks and therefore moves a lot in each second. But those moves are 
+"smarter" compared to strategy $1$ because they can help to avoid lots of dead 
+ends. (details are explained in section \ref{sec:cmpstgy})
+
+\clearpage
+
+### Solutions per second
 
 <div id="fig:solspersec">
 ![Solutions per second for each 
@@ -215,5 +245,8 @@ Statistics of solutions per second for each run
 Figure (\ref{fig:solspersec}) records the statistics of the number of solutions 
 of each heuristics get per second. Not surprisingly, strategy $5$ can give the 
 most solutions per second because it can effectively avoid many dead end path 
-and increase the searching efficiency. 
+and increase the searching efficiency. Strategy $6$ is better than strategy $1$ 
+to $3$ by making reasonable choice along neighbors having the same dynamic 
+degree but lagged behind strategy $4$ and $5$ for not being able to avoid dead 
+ends.
 
