@@ -125,6 +125,14 @@ Median)](./outputs/cmp_num_of_sols_line.png){#fig:numline width=50%}
 Statistics of number of solutions found
 </div>
 
+: Statistics of number of solutions found {#tbl:numofsols}
+
+| statistics   |   strategy 1 |   strategy 2 |   strategy 3 |   strategy 4 |   strategy 5 |   strategy 6 |
+|--------------+--------------+--------------+--------------+--------------+--------------+--------------|
+| Mean         |       1791.5 |       2649.3 |         3591 |        21705 |      57496.2 |         4796 |
+| Std          |      1426.05 |      1421.61 |      1716.08 |      9131.67 |      8768.17 |            0 |
+| Median       |         1418 |       2428.5 |         3944 |        21019 |      62474.5 |         4796 |
+
 From the Figure (\ref{fig:numofsols}), we can see that the number of closed 
 tour solutions given by strategy $0$ to $5$ increases slowly at first and then 
 boosts later. This kind of behavior has not surprised me. Strategy $0$ which 
@@ -143,6 +151,14 @@ Median)](./outputs/cmp_time_used_line.png){width=50%}
 Statistics of time used for each run
 </div>
 
+: Statistics of time used for each run {#tbl:timeused}
+
+| statistics   |   strategy 1 |   strategy 2 |   strategy 3 |   strategy 4 |   strategy 5 |   strategy 6 |
+|--------------+--------------+--------------+--------------+--------------+--------------+--------------|
+| Mean         |     0.433033 |     0.433333 |     0.532933 |        0.416 |     0.657367 |     0.453733 |
+| Std          |    0.0548698 |    0.0233971 |    0.0169311 |     0.014215 |    0.0261374 |    0.0132059 |
+| Median       |        0.409 |         0.43 |       0.5315 |        0.417 |         0.65 |        0.452 |
+
 From figure (\ref{fig:timeused}), we can see that strategy $5$ are the 
 slowest.The reason of this is combining strategy $2$ to $4$ requires more time 
 to query and update the dynamic degree of the neighbors. To the contrary, 
@@ -157,6 +173,15 @@ Median)](./outputs/cmp_moves_per_sec_line.png){width=50%}
 
 Statistics of moves per second for each run
 </div>
+
+: Statistics of time used for each run {#tbl:movepersec}
+
+| statistics   |   strategy 1 |   strategy 2 |   strategy 3 |   strategy 4 |   strategy 5 |   strategy 6 |
+|--------------+--------------+--------------+--------------+--------------+--------------+--------------|
+| Mean         |  2.34356e+06 |  2.31323e+06 |  1.87825e+06 |  2.40666e+06 |   1.5236e+06 |  2.20566e+06 |
+| Std          |       271223 |       102873 |      58136.7 |      82292.1 |      59844.1 |      59298.3 |
+| Median       |  2.44512e+06 |  2.32558e+06 |  1.88147e+06 |  2.39808e+06 |  1.53846e+06 |  2.21239e+06 |
+
 
 From figure (\ref{fig:movpersec}), we can see that by running $1000,000$ states 
 in total, strategy $1$ has the highest number of moves in one second. This is 
@@ -179,7 +204,16 @@ Median)](./outputs/cmp_sols_per_sec_line.png){width=50%}
 Statistics of solutions per second for each run
 </div>
 
+: Statistics of solutions per second for each run {#tbl:solspersec}
+
+| statistics   |   strategy 1 |   strategy 2 |   strategy 3 |   strategy 4 |   strategy 5 |   strategy 6 |
+|--------------+--------------+--------------+--------------+--------------+--------------+--------------|
+| Mean         |      4240.31 |      6180.35 |      6774.16 |      52717.4 |      88051.6 |      10578.4 |
+| Std          |      3525.62 |      3412.95 |      3317.89 |      23481.2 |      16094.2 |      284.395 |
+| Median       |      3135.54 |      5660.18 |      7202.01 |      51193.4 |      96327.7 |      10610.6 |
+
 Figure (\ref{fig:solspersec}) records the statistics of the number of solutions 
 of each heuristics get per second. Not surprisingly, strategy $5$ can give the 
 most solutions per second because it can effectively avoid many dead end path 
 and increase the searching efficiency. 
+

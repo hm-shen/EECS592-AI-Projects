@@ -433,11 +433,12 @@ public class KnightsTour {
         try{
             PrintWriter writer = new PrintWriter(new FileOutputStream(
                         new File(fileName), true));
-            writer.print(numOfKTfound + ": ");
+            writer.printf("%03d:", numOfKTfound);
             for (int ind = 0; ind < path.size(); ind++) {
                 int[] pos = path.get(ind);
                 writer.print((pos[0]+1) + "," + (pos[1]+1) + " ");
             }
+            writer.printf("%d,%d ", (stRow+1), (stCol+1));
             writer.print("\n");
             writer.close();
         } catch (IOException ioe) {
@@ -567,8 +568,8 @@ public class KnightsTour {
         // initialize parameters
         int dimension = 8;
         int[] startNode = {1,2};
-        int ST = 5;
-        int[] candST = {1};
+        int ST = 6;
+        int[] candST = {0,2,3,4,5,6};
         int numIter = 1000000;
         int numOfRuns = 30;
         int numOfFoundList[] = new int[numOfRuns];

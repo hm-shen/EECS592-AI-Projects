@@ -1,5 +1,6 @@
 import csv
 import numpy as np
+import tabulate as tab
 import matplotlib.pyplot as plt
 
 def readCSV(path, delimitMark=',', quoteMark='|', display=False):
@@ -14,25 +15,28 @@ def readCSV(path, delimitMark=',', quoteMark='|', display=False):
             data = data + ele
     return data
 
-def lineChart(listOfData, listOfStyles, listOfLabels, plotTitle=None, xLabel=None, yLabel=None,\
+def tabularize(headers, listOfIndex, listOfData, tableFmt='orgtbl', align="right"):
+    rowsOfTbl = [0] * len(listOfData)
+    for rows in range(len(listOfData)) :
+        rowsOfTbl[rows] = listOfData[rows]
+        rowsOfTbl[rows].insert(0, listOfIndex[rows])
+    tbl = tab.tabulate(rowsOfTbl, headers, tablefmt=tableFmt, numalign=align)
+    return tbl
+
+def lineChart(listOfData, listOfXaxis, listOfStyles, listOfLabels, plotTitle=None, xLabel=None, yLabel=None,\
         savePath=None, xMin=None, xMax=None, yMin=None, yMax=None, display=False):
 
     fig = plt.figure()
     ax = plt.gca()
     for ind, data in enumerate(listOfData) :
-        plt.plot(data, listOfStyles[ind], label=listOfLabels[ind])
+        plt.plot(listOfXaxis[ind], data, listOfStyles[ind], label=listOfLabels[ind])
     ax.set_xlim(xmin=xMin, xmax=xMax)
     ax.set_ylim(ymin=xMin, ymax=xMax)
-    if plotTitle is not None :
-        plt.title(plotTitle)
-    if listOfLabels is not None :
-        plt.legend()
-    if xLabel is not None :
-        plt.xlabel(xLabel)
-    if yLabel is not None :
-        plt.ylabel(yLabel)
-    if savePath is not None :
-        plt.savefig(savePath)
+    plt.title(plotTitle)
+    plt.legend()
+    plt.xlabel(xLabel)
+    plt.ylabel(yLabel)
+    plt.savefig(savePath)
     if display :
         plt.show()
 
@@ -54,14 +58,10 @@ def boxPlot(listOfData, plotTitle=None, xLabel=None, yLabel=None,\
     plt.boxplot(listOfData)
     ax.set_xlim(xmin=xMin, xmax=xMax)
     ax.set_ylim(ymin=xMin, ymax=xMax)
-    if plotTitle is not None :
-        plt.title(plotTitle)
-    if xLabel is not None :
-        plt.xlabel(xLabel)
-    if yLabel is not None :
-        plt.ylabel(yLabel)
-    if savePath is not None :
-        plt.savefig(savePath)
+    plt.title(plotTitle)
+    plt.xlabel(xLabel)
+    plt.ylabel(yLabel)
+    plt.savefig(savePath)
     if display :
         plt.show()
 
@@ -72,28 +72,8 @@ if __name__ == "__main__" :
     '''
     Test code
     '''
-    dataFolder = '../outputs/'
-    dataName = ['testRstNum', 'testRstTime']
-    dataChoices = [0,1,2,3,4,5,6]
-    dataNum = [0] * len(dataChoices)
-    dataTime = [0] * len(dataChoices)
-
-    for index in dataChoices :
-        dataPath = dataFolder + dataName[0] + str(index) + '.csv'
-        data = readCSV(dataPath)
-        data = [float(ele) for ele in data]
-        dataNum[index] = np.array(data)
-
-    boxPlot(dataNum, plotTitle='Comparison between different heuristics', \
-            xLabel='Heuristics from 0 to 6', \
-            yLabel='Number of closed Knights\' tour found', display=True)
-
-    # fake up some data
-    # spread = np.random.rand(50) * 100
-    # center = np.ones(25) * 50
-    # flier_high = np.random.rand(10) * 100 + 100
-    # flier_low = np.random.rand(10) * -100
-    # data = np.concatenate((spread, center, flier_high, flier_low), 0)
-    # listOfData = [data, data]
-
-    # boxPlot(listOfData,display=True)
+    listOfData = [[24,18,19], [19,34,35]]
+    listOfIndex = ['Alice', 'Bob']
+    headers = ['Name', 'Age', 'dsf', 'ewo']
+    tbl = tabularize(headers, listOfIndex, listOfData, 'orgtbl')
+    print tbl

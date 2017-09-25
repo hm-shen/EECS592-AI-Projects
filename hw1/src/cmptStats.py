@@ -11,6 +11,11 @@ if __name__ == "__main__" :
     dataChoices = [1,2,3,4,5,6]
     listOfStyles = ['-ob', '-*k', '-^r']
     listOfLabels = ['mean', 'standard deviation', 'median']
+    listOfXaxis = [np.linspace(1,6,6), np.linspace(1,6,6), np.linspace(1,6,6)]
+    headers = ['statistics']
+    for data in dataChoices :
+        headers.append('strategy ' + str(data))
+    listOfIndex = ['Mean', 'Std', 'Median']
 
     dataNum = [0] * len(dataChoices)
     numMean = [0] * len(dataChoices)
@@ -91,29 +96,49 @@ if __name__ == "__main__" :
             yLabel='Solutions per second', display=False)
 
     fig5 = utl.lineChart([np.array(numMean), np.array(numStd),
-        np.array(numMedian)], listOfStyles, listOfLabels, \
+        np.array(numMedian)], listOfXaxis, listOfStyles, listOfLabels, \
             savePath='../outputs/cmp_num_of_sols_line.png',
             plotTitle='mean, std, median of number of solution found', \
             xLabel='Heuristics from 1 to 6', \
             yLabel='Mean, Std, Median of number of solutions found', display=False)
 
+    tbl5 = utl.tabularize(headers, listOfIndex, [numMean, numStd, numMedian])
+
     fig6 = utl.lineChart([np.array(timeMean), np.array(timeStd),
-        np.array(timeMedian)], listOfStyles, listOfLabels, \
+        np.array(timeMedian)], listOfXaxis, listOfStyles, listOfLabels, \
             savePath='../outputs/cmp_time_used_line.png',
             plotTitle='mean, std, median of time used', \
             xLabel='Heuristics from 1 to 6', \
             yLabel='Mean, Std, Median of time taken', display=False)
 
+    tbl6 = utl.tabularize(headers, listOfIndex, [timeMean, timeStd, timeMedian])
+
     fig7 = utl.lineChart([np.array(movesPerSecMean), np.array(movesPerSecStd),
-        np.array(movesPerSecMedian)], listOfStyles, listOfLabels, \
+        np.array(movesPerSecMedian)], listOfXaxis, listOfStyles, listOfLabels, \
             savePath='../outputs/cmp_moves_per_sec_line.png',
             plotTitle='mean, std, median of moves per secend', \
             xLabel='Heuristics from 1 to 6', \
             yLabel='Mean, Std, Median of moves per second', display=False)
 
+    tbl7 = utl.tabularize(headers, listOfIndex, [movesPerSecMean,\
+        movesPerSecStd, movesPerSecMedian])
+
     fig8 = utl.lineChart([np.array(solsPerSecMean), np.array(solsPerSecStd),
-        np.array(solsPerSecMedian)], listOfStyles, listOfLabels, \
+        np.array(solsPerSecMedian)], listOfXaxis, listOfStyles, listOfLabels, \
             savePath='../outputs/cmp_sols_per_sec_line.png',
             plotTitle='mean, std, median of solutions found per secend', \
             xLabel='Heuristics from 1 to 6', \
             yLabel='Mean, Std, Median of solutions found per second', display=False)
+
+    tbl8 = utl.tabularize(headers, listOfIndex, [solsPerSecMean, solsPerSecStd,\
+        solsPerSecMedian])
+
+    print 'numOfSols\n'
+    print tbl5 + '\n'
+    print 'timeUsed\n'
+    print tbl6 + '\n'
+    print 'movePerSec\n'
+    print tbl7 + '\n'
+    print 'solsPerSec\n'
+    print tbl8 + '\n'
+
