@@ -144,3 +144,109 @@ $$
 4. $\displaystyle \frac{D \land \neg B, D, \neg B}{E}$. $E$ is true.
 -->
 
+## First-Order Logic Quantifiers
+
+### Translate sentences into FOL:
+
+a) $\forall y, Crust(y) \land GoesWith(Peperoni, y)$.
+b) $\exists x, Topping(x) \land GoesWith(x, Stuffed)$.
+c) $\forall y \exists \; x \; Topping(x) \land Crust(y) \land
+GoesWith(x,y)$.
+
+### Translate FOL into English:
+
+d) Ann does not like curst mushrooms no matter what topping comes with
+it.
+e) Everyone likes thin pizza with some topping.
+f) There are some people love thick pizza no matter what topping comes
+with it.
+
+## First-Order Logic Semantics
+
+a) $WorthMore(quarter, penny) \land WorthMore(quarter, Nickel) \land
+WorthMore(quarter, dime)$.
+b) $WorthMore(quarter, penny) \land WorthMore(quarter, nickel) \land
+WorthMore(quarter, dime) \land penny \neq nickel \land nickel \neq
+dime \land penny \neq dime \land \forall \; x \; UScoins(x) \land x \neq
+quarter \land x \neq penny \land x \neq nickel \land x \neq dime
+\land WorthMore(x, quarter)$.
+
+## Unification
+
+a) $x = A, y = B, z = B$.
+b) Fail. To unify this two expressions, $x,y$ need to satisfy: 
+	- $y = G(x,x)$ and $y = G(A,B)$.
+Since there does not exist $x$ such that $G(x,x) = G(A,B)$ therefore
+no $x,y$ can satisfy the above condition.
+c) $x = A, y = A$.
+d) $x = A, y = A, z = G(B)$.
+
+## Resolution Refutation
+
+1) All wolves howl.
+2) Anyone who has cats as pets will not have mice.
+3) Anyone who is a light sleeper can’t live near anything that howls.
+4) Frank either has cats or lives near wolves.
+5) If Frank is a light sleeper, Frank has mice.
+
+
+### Write all the sentences above in FOL
+
+1) $\forall \; w \; Wolf(w) \fd Howl(w)$.
+2) $\forall \; x (\exists y \; Cat(y) \land Have(x,y) \fd \sim (\exists
+\; z \; Mouse(z) \land Have(x,z)))$.
+3) $\forall \; x \; LS(x) \fd \sim (\exists \; y \; Howl(y) \land
+Near(x,y))$.
+4) $\exists \; x \; Cat(x) \land Have(Frank, x) \lor \exists \; w \;
+Wolf(w) \land Near(Frank, w)$.
+5) $LS(Frank) \fd \exists \; m \; Mouse(m) \land Have(Frank, m)$.
+
+### Convert all the FOL to CNF
+
+
+1) $\sim Wolf(w) \lor Howl(w)$.
+2) $\sim Cat(y) \lor \sim Have(x,y) \lor \sim Mouse(z) \lor \sim
+Have(x,z)$.
+3) $\sim LS(x) \lor \sim Howl(y) \lor \sim Near(x,y)$.
+4) $(Cat(X_1) \lor Wolf(W_0)) \land (Cat(X_1) \lor Near(Frank, W_0))
+\land (Have(Frank, X_1) \lor Wolf(W_0)) \land (Have(Frank, X_1) \lor
+Near(Frank, W_0))$.
+5) $(\sim LS(Frank) \lor Mouse(M)) \land (\sim LS(Frank) \lor Have(Frank,M))$.
+
+### Prove "Frank is not a light sleeper" using Resolution Refutation.
+
+1) Convert "Frank is not a light sleeper" to CNF: $\sim LS(Frank)$. 
+2) Add $LS(Frank)$ to KB and try to find controversy.
+3) $\displaystyle \frac{ (\sim LS(F) \lor Mouse(M)) \land LS(Frank)
+}{Mouse(M)}$. Add $Mouse(M)$ to KB. $\displaystyle \frac{ (\sim LS(F) \lor
+Have(Frank,M)) \land LS(Frank) }{Have(Frank,M)}$. Add $Have(Frank,M)$
+to KB.
+4) $\displaystyle \frac{(\sim Cat(y) \lor \sim Have(x,y) \lor \sim
+Mouse(z) \lor \sim Have(x,z)) \land Mouse(M) \land Have(Frank,M)}{\sim
+Cat(y) \lor \sim Have(Frank, y)}$. Add $\sim Cat(y) \lor \sim Have(Frank, y)$ to KB. 
+
+5) $\displaystyle \frac{(Cat(X_1) \lor Wolf(W_0)) \land (\sim Cat(y)
+\lor \sim Have(Frank,y))}{Wolf(W_0) \lor \sim Have(Frank,X_1)}$. Add
+$Wolf(W_0) \lor \sim Have(Frank,X_1)$ to KB. 
+
+6) $\displaystyle \frac{(Have(Frank,X_1) \lor Near(Frank, W_0)) \land
+(Wolf(W_0) \lor \sim Have(Frank,X_1))
+}{Near(Frank,W_0) \lor
+Wolf(W_0)}$. Add $Near(Frank,W_0) \lor Wolf(W_0)$ to KB.
+
+7) $\displaystyle \frac{ (\sim Wolf(w) \lor Howl(w)) \land (Near(Frank,W_0) \lor
+Wolf(W_0)) }{Near(Frank,W_0) \lor Howl(w)}$. Add $Near(Frank,W_0) \lor
+Howl(wW_0$ to KB.
+
+8) $\displaystyle \frac{ (\sim LS(x) \lor \sim Howl(y) \lor \sim Near(x,y)) \land
+(Near(Frank,W_0) \lor Howl(W_0)) }{\sim LS(Frank)}$. $\sim LS(Frank)$
+contradict with our assumption $LS(Frank)$. Therefore Frank is not a
+light sleeper.
+<!--
+6) $\displaystyle \frac{(Cat(X
+_1) \lor Near(Frank,W_0)) \land Cat(y)}{Near(Frank, W_0))}$. Add $Near(Frank,W_0)$ to KB.
+6) $\displaystyle \frac{(\sim Wolf(W_1) \lor Howl(W_1)) \land W$
+-->
+
+
+
