@@ -3,19 +3,25 @@ title: EECS 592 Homework 3
 author: Haoming Shen
 date: \today
 geometry: margin=0.9in
-fontsize: 10pt
+fontsize: 11pt
 toc: false
 secnumdepth: 0
 header-includes:
     - \usepackage{bm}
     - \usepackage{color}
+    - \usepackage{fontenc}
+    - \usepackage{sansmath}
 ---
 
+\renewcommand*\familydefault{\sfdefault} 
 \newcommand{\reminder}[1]{{\textsf{\textcolor{red}{[question: #1]}}}}
 \newcommand{\ans}[1]{{\textsf{\textcolor{blue}{[ans: #1]}}}}
 \newcommand{\eql}{\Leftrightarrow}
 \newcommand{\fd}{\Rightarrow}
 \newcommand{\ie}{i.e.}
+
+\normalfont
+\sansmath
 
 ## Problem 1: Evaluating Logical Statements
 
@@ -192,61 +198,60 @@ d) $x = A, y = A, z = G(B)$.
 
 ### Write all the sentences above in FOL
 
-1) $\forall \; w \; Wolf(w) \fd Howl(w)$.
-2) $\forall \; x (\exists y \; Cat(y) \land Have(x,y) \fd \sim (\exists
-\; z \; Mouse(z) \land Have(x,z)))$.
-3) $\forall \; x \; LS(x) \fd \sim (\exists \; y \; Howl(y) \land
-Near(x,y))$.
-4) $\exists \; x \; Cat(x) \land Have(Frank, x) \lor \exists \; w \;
-Wolf(w) \land Near(Frank, w)$.
-5) $LS(Frank) \fd \exists \; m \; Mouse(m) \land Have(Frank, m)$.
+1) $\forall \; w \; \text{Wolf}(w) \fd \text{Howl}(w)$.
+2) $\forall \; x (\exists y \; \text{Cat}(y) \land \text{Have}(x,y) \fd \sim 
+   (\exists
+\; z \; \text{Mouse}(z) \land \text{Have}(x,z)))$.
+3) $\forall \; x \; \text{LS}(x) \fd \sim (\exists \; y \; \text{Howl}(y) \land
+\text{Near}(x,y))$.
+4) $\exists \; x \; \text{Cat}(x) \land \text{Have}(\text{Frank}, x) \lor \exists \; w \;
+\text{Wolf}(w) \land \text{Near}(\text{Frank}, w)$.
+5) $\text{LS}(\text{Frank}) \fd \exists \; m \; \text{Mouse}(m) \land \text{Have}(\text{Frank}, m)$.
 
 ### Convert all the FOL to CNF
 
 
-1) $\sim Wolf(w) \lor Howl(w)$.
-2) $\sim Cat(y) \lor \sim Have(x,y) \lor \sim Mouse(z) \lor \sim
-Have(x,z)$.
-3) $\sim LS(x) \lor \sim Howl(y) \lor \sim Near(x,y)$.
-4) $(Cat(X_1) \lor Wolf(W_0)) \land (Cat(X_1) \lor Near(Frank, W_0))
-\land (Have(Frank, X_1) \lor Wolf(W_0)) \land (Have(Frank, X_1) \lor
-Near(Frank, W_0))$.
-5) $(\sim LS(Frank) \lor Mouse(M)) \land (\sim LS(Frank) \lor Have(Frank,M))$.
+1) $\sim \text{Wolf}(w) \lor \text{Howl}(w)$.
+2) $\sim \text{Cat}(y) \lor \sim \text{Have}(x,y) \lor \sim \text{Mouse}(z) \lor \sim
+\text{Have}(x,z)$.
+3) $\sim \text{LS}(x) \lor \sim \text{Howl}(y) \lor \sim \text{Near}(x,y)$.
+4) $(\text{Cat}(X_1) \lor \text{Wolf}(W_0)) \land (\text{Cat}(X_1) \lor \text{Near}(\text{Frank}, W_0))
+\land (\text{Have}(\text{Frank}, X_1) \lor \text{Wolf}(W_0)) \land (\text{Have}(\text{Frank}, X_1) \lor
+\text{Near}(\text{Frank}, W_0))$.
+5) $(\sim \text{LS}(\text{Frank}) \lor \text{Mouse}(M)) \land (\sim \text{LS}(\text{Frank}) \lor \text{Have}(\text{Frank},M))$.
 
 ### Prove "Frank is not a light sleeper" using Resolution Refutation.
 
-1) Convert "Frank is not a light sleeper" to CNF: $\sim LS(Frank)$. 
-2) Add $LS(Frank)$ to KB and try to find controversy.
-3) $\displaystyle \frac{ (\sim LS(F) \lor Mouse(M)) \land LS(Frank)
-}{Mouse(M)}$. Add $Mouse(M)$ to KB. $\displaystyle \frac{ (\sim LS(F) \lor
-Have(Frank,M)) \land LS(Frank) }{Have(Frank,M)}$. Add $Have(Frank,M)$
+1) Convert "Frank is not a light sleeper" to CNF: $\sim \text{LS}(\text{Frank})$. 
+2) Add $\text{LS}(\text{Frank})$ to KB and try to find controversy.
+3) $\displaystyle \frac{ (\sim \text{LS}(F) \lor \text{Mouse}(M)) \land \text{LS}(\text{Frank})
+}{\text{Mouse}(M)}$. Add $\text{Mouse}(M)$ to KB. $\displaystyle \frac{ (\sim \text{LS}(F) \lor
+\text{Have}(\text{Frank},M)) \land \text{LS}(\text{Frank}) }{\text{Have}(\text{Frank},M)}$. Add $\text{Have}(\text{Frank},M)$
 to KB.
-4) $\displaystyle \frac{(\sim Cat(y) \lor \sim Have(x,y) \lor \sim
-Mouse(z) \lor \sim Have(x,z)) \land Mouse(M) \land Have(Frank,M)}{\sim
-Cat(y) \lor \sim Have(Frank, y)}$. Add $\sim Cat(y) \lor \sim Have(Frank, y)$ to KB. 
+4) $\displaystyle \frac{(\sim \text{Cat}(y) \lor \sim \text{Have}(x,y) \lor \sim
+\text{Mouse}(z) \lor \sim \text{Have}(x,z)) \land \text{Mouse}(M) \land \text{Have}(\text{Frank},M)}{\sim
+\text{Cat}(y) \lor \sim \text{Have}(\text{Frank}, y)}$. Add $\sim \text{Cat}(y) \lor \sim \text{Have}(\text{Frank}, y)$ to KB. 
 
-5) $\displaystyle \frac{(Cat(X_1) \lor Wolf(W_0)) \land (\sim Cat(y)
-\lor \sim Have(Frank,y))}{Wolf(W_0) \lor \sim Have(Frank,X_1)}$. Add
-$Wolf(W_0) \lor \sim Have(Frank,X_1)$ to KB. 
+5) $\displaystyle \frac{(\text{Cat}(X_1) \lor \text{Wolf}(W_0)) \land (\sim \text{Cat}(y)
+\lor \sim \text{Have}(\text{Frank},y))}{\text{Wolf}(W_0) \lor \sim \text{Have}(\text{Frank},X_1)}$. Add
+$\text{Wolf}(W_0) \lor \sim \text{Have}(\text{Frank},X_1)$ to KB. 
 
-6) $\displaystyle \frac{(Have(Frank,X_1) \lor Near(Frank, W_0)) \land
-(Wolf(W_0) \lor \sim Have(Frank,X_1))
-}{Near(Frank,W_0) \lor
-Wolf(W_0)}$. Add $Near(Frank,W_0) \lor Wolf(W_0)$ to KB.
+6) $\displaystyle \frac{(\text{Have}(\text{Frank},X_1) \lor \text{Near}(\text{Frank}, W_0)) \land
+(\text{Wolf}(W_0) \lor \sim \text{Have}(\text{Frank},X_1))
+}{\text{Near}(\text{Frank},W_0) \lor
+\text{Wolf}(W_0)}$. Add $\text{Near}(\text{Frank},W_0) \lor \text{Wolf}(W_0)$ to KB.
 
-7) $\displaystyle \frac{ (\sim Wolf(w) \lor Howl(w)) \land (Near(Frank,W_0) \lor
-Wolf(W_0)) }{Near(Frank,W_0) \lor Howl(w)}$. Add $Near(Frank,W_0) \lor
-Howl(wW_0$ to KB.
+7) $\displaystyle \frac{ (\sim \text{Wolf}(w) \lor \text{Howl}(w)) \land (\text{Near}(\text{Frank},W_0) \lor
+\text{Wolf}(W_0)) }{\text{Near}(\text{Frank},W_0) \lor \text{Howl}(w)}$. Add $\text{Near}(\text{Frank},W_0) \lor
+\text{Howl}(wW_0$ to KB.
 
-8) $\displaystyle \frac{ (\sim LS(x) \lor \sim Howl(y) \lor \sim Near(x,y)) \land
-(Near(Frank,W_0) \lor Howl(W_0)) }{\sim LS(Frank)}$. $\sim LS(Frank)$
-contradict with our assumption $LS(Frank)$. Therefore Frank is not a
+8) $\displaystyle \frac{ (\sim \text{LS}(x) \lor \sim \text{Howl}(y) \lor \sim \text{Near}(x,y)) \land
+(\text{Near}(\text{Frank},W_0) \lor \text{Howl}(W_0)) }{\sim \text{LS}(\text{Frank})}$. $\sim \text{LS}(\text{Frank})$
+contradict with our assumption $\text{LS}(\text{Frank})$. Therefore \text{Frank} is not a
 light sleeper.
+
 <!--
 6) $\displaystyle \frac{(Cat(X
-_1) \lor Near(Frank,W_0)) \land Cat(y)}{Near(Frank, W_0))}$. Add $Near(Frank,W_0)$ to KB.
-6) $\displaystyle \frac{(\sim Wolf(W_1) \lor Howl(W_1)) \land W$
+_1) \lor \text{Near}(\text{Frank},W_0)) \land Cat(y)}{\text{Near}(\text{Frank}, W_0))}$. Add $\text{Near}(\text{Frank},W_0)$ to KB.
+6) $\displaystyle \frac{(\sim \text{Wolf}(W_1) \lor \text{Howl}(W_1)) \land W$
 -->
-
-
-
