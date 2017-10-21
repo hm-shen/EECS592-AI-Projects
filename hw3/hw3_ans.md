@@ -31,14 +31,18 @@ a) $M := (A \land B) \models S := (A \eql B)$ is **true**:
        i.e.,$A=1,B=1$, $S = (A \eql B)$ is true.
     3. $M \models S$ is true because for all models that evaluate $M$ to be 
        true $S$ is also true.
+
 b) $M := (A \eql B) \models S := (A \lor B)$ is **false**:
     1. Consider $A = 0, B = 0$ which evaluates $M := (A \eql B)$ to be true.
     2. However, $A = 0 \lor B = 0$ is evaluated to be false.
     3. Therefore $M \models S$ is false because there exists an assignment of 
        $A$ and $B$ which makes $M$ to be true and $S$ is false.
+
 c) $M := (A \land B) \fd C \models S := (A \fd C) \lor (B \fd C)$ is **true**:
     1. $S = (\neg A \lor C) \lor (\neg B \lor C) = \neg A \lor \neg B \lor C$.
-    2. $M = \neg (A \land B) \lor C = (\neg A \lor \neg B) \lor C = S$.
+    2. $M = \neg (A \land B) \lor C = (\neg A \lor \neg B) \lor C =
+       S$.
+
 d) $M := (A \lor B) \land (\neg C \lor \neg D \lor E) \models S := (A \lor B) 
    \land (\neg D \lor E)$ is **false**.
     1. Consider $A = 1, B = 1, C = 0, D = 1, E = 0$ which evaluates $M$ to be 
@@ -46,11 +50,13 @@ d) $M := (A \lor B) \land (\neg C \lor \neg D \lor E) \models S := (A \lor B)
     2. However, $S$ is evaluated to be false.
     3. Therefore $M \models S$ is false because there exists an assignment of
        $M$ which makes $M$ to be true but $S$ to be false.
+	   
 e) $M := (C \lor (\neg A \land \neg B)) \equiv S := ((A \fd C) \land (B \fd 
    C))$ is **true**.
     1. $S \equiv ( \neg A \lor C) \land (\neg B \lor C)$.
     2. $M \equiv (C \lor \neg A) \land (C \lor \neg B)$.
     3. Therefore $M \equiv S$.
+
 f)  The statement, $\alpha \models \beta \eql$ $\alpha \fd \beta$ is valid, is 
     **true**.
     1. Denote $M(\alpha) = \{ x ~ | ~ \alpha(x) = 1 \}$ to be the set of all 
@@ -67,6 +73,7 @@ f)  The statement, $\alpha \models \beta \eql$ $\alpha \fd \beta$ is valid, is
        \beta(x_0) = 1, \; \forall x_0 \in M(\alpha)$. This implies that $x_0 
        \in M(\beta)$. Therefore $M(\alpha) \subseteq M(\beta)$, \ie $\alpha 
        \models \beta$.
+
 g) The statement, $\alpha \equiv \beta \eql (\neg (\alpha \eql \beta) \text{ is 
    unsatisfiable})$ is **true**.
     1. $\alpha \equiv \beta \eql (\alpha \models \beta) \land (\beta \models 
@@ -75,16 +82,24 @@ g) The statement, $\alpha \equiv \beta \eql (\neg (\alpha \eql \beta) \text{ is
     2. $\alpha \equiv \beta \eql (\alpha(x) \eql \beta(x), \; \forall x)$. Thus 
        $\alpha \equiv \beta \eql (\neg (\alpha \eql \beta)$ is 
        unsatisfiable$)$.
-h) $(\neg B \fd A) \fd (\neg A \fd B)$ is **true**.
-    1. $(\neg B \fd A)$ = $\neg (\neg B) \lor A = B \lor A$; $\neg A \fd B = A 
-       \lor B$.
+
+h) $(\neg B \fd A) \fd (\neg A \fd \neg B)$ is **false**.
+    1. $(\neg B \fd A)$ = $\neg (\neg B) \lor A = B \lor A$; $\neg A \fd \neg B 
+       = A \lor \neg B$.
+    2. Let $A = 0$, $B = 1$, the left hand side is $B \lor A = 1$, the right 
+       hand side is $A \lor \neg B = 0$. Therefore the above implication is 
+       false.
+    <!--
     2. Since for all models that make $(\neg B \fd A)$ true, $(\neg A \fd B)$ 
        is also true, the above statement is true.
+    -->
+
 i) The claim that $(A \land B) \land \neg (A \fd B)$ is satisfiable is **false**.
     1. $\neg (A \fd B) = \neg ( \neg A \lor B) = A \land \neg B$
     2. $(A \land B) \land \neg (A \fd B) = (A \land B) \land (A \land \neg B) = 
        A \land B \land A \land \neg B = A \land B \land \neg B$. This is 
        unsatisfiable.
+
 j) The claim that $(A \eql B) \land (\neg A \lor B)$ is unsatisfiable is 
    **false**.
     1. $(A \eql B) \land (\neg A \lor B) = (A \eql B) \land (A \fd B)$. This is 
@@ -130,7 +145,7 @@ F \eql \neg B \\
 \end{aligned}
 $$
 
-### B. Prove that $E$ is true using resolution.
+### B. Prove that $E$ is true using resolution. 
 
 1. $\displaystyle \frac{(\neg A \lor C \lor \neg D) \land A \land D}{C}$. $C$ 
    is added to KB.
@@ -156,20 +171,23 @@ $$
 
 a) $\forall y, Crust(y) \land GoesWith(Peperoni, y)$.
 b) $\exists x, Topping(x) \land GoesWith(x, Stuffed)$.
-c) $\forall y \exists \; x \; Topping(x) \land Crust(y) \land
+c) $\forall y \; \exists \; x \; Topping(x) \land Crust(y) \land
 GoesWith(x,y)$.
 
 ### Translate FOL into English:
 
-d) Ann does not like curst mushrooms no matter what topping comes with
+<!--
+d) Ann does not like crust mushrooms no matter what topping comes with
 it.
+-->
+d) As long as the pizza covered with mushrooms crust, Ann does not like it.
 e) Everyone likes thin pizza with some topping.
 f) There are some people love thick pizza no matter what topping comes
 with it.
 
 ## First-Order Logic Semantics
 
-a) $WorthMore(quarter, penny) \land WorthMore(quarter, Nickel) \land
+a) $WorthMore(quarter, penny) \land WorthMore(quarter, nickel) \land
 WorthMore(quarter, dime)$.
 b) $WorthMore(quarter, penny) \land WorthMore(quarter, nickel) \land
 WorthMore(quarter, dime) \land penny \neq nickel \land nickel \neq
@@ -179,13 +197,13 @@ quarter \land x \neq penny \land x \neq nickel \land x \neq dime
 
 ## Unification
 
-a) $x = A, y = B, z = B$.
+a) $\{x/A, y/B, z/B\}$.
 b) Fail. To unify this two expressions, $x,y$ need to satisfy: 
 	- $y = G(x,x)$ and $y = G(A,B)$.
 Since there does not exist $x$ such that $G(x,x) = G(A,B)$ therefore
 no $x,y$ can satisfy the above condition.
-c) $x = A, y = A$.
-d) $x = A, y = A, z = G(B)$.
+c) $\{x/y, y/A\}$.
+d) $\{x/A, y/A, z/G(B)\}$.
 
 ## Resolution Refutation
 
@@ -222,12 +240,16 @@ d) $x = A, y = A, z = G(B)$.
 
 ### Prove "Frank is not a light sleeper" using Resolution Refutation.
 
-1) Convert "Frank is not a light sleeper" to CNF: $\sim \text{LS}(\text{Frank})$. 
+1) Convert "Frank is not a light sleeper" to CNF: $\sim
+\text{LS}(\text{Frank})$.
+
 2) Add $\text{LS}(\text{Frank})$ to KB and try to find controversy.
+
 3) $\displaystyle \frac{ (\sim \text{LS}(F) \lor \text{Mouse}(M)) \land \text{LS}(\text{Frank})
 }{\text{Mouse}(M)}$. Add $\text{Mouse}(M)$ to KB. $\displaystyle \frac{ (\sim \text{LS}(F) \lor
 \text{Have}(\text{Frank},M)) \land \text{LS}(\text{Frank}) }{\text{Have}(\text{Frank},M)}$. Add $\text{Have}(\text{Frank},M)$
 to KB.
+
 4) $\displaystyle \frac{(\sim \text{Cat}(y) \lor \sim \text{Have}(x,y) \lor \sim
 \text{Mouse}(z) \lor \sim \text{Have}(x,z)) \land \text{Mouse}(M) \land \text{Have}(\text{Frank},M)}{\sim
 \text{Cat}(y) \lor \sim \text{Have}(\text{Frank}, y)}$. Add $\sim \text{Cat}(y) \lor \sim \text{Have}(\text{Frank}, y)$ to KB. 
