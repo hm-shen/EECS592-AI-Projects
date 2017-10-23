@@ -147,6 +147,8 @@ $$
 
 ### B. Prove that $E$ is true using resolution. 
 
+<!--\reminder{check}-->
+
 1. $\displaystyle \frac{(\neg A \lor C \lor \neg D) \land A \land D}{C}$. $C$ 
    is added to KB.
 2. $\displaystyle \frac{(\neg A \lor \neg C \lor \neg D \lor \neg F) \land A 
@@ -169,10 +171,17 @@ $$
 
 ### Translate sentences into FOL:
 
+<!--
 a) $\forall y, Crust(y) \land GoesWith(Peperoni, y)$.
+-->
+a) $\forall y, Crust(y) \fd GoesWith(Peperoni, y)$.
 b) $\exists x, Topping(x) \land GoesWith(x, Stuffed)$.
+c) $\forall y \; \exists \; x \; Topping(x) \fd Crust(y) \land
+GoesWith(x,y)$.
+<!--
 c) $\forall y \; \exists \; x \; Topping(x) \land Crust(y) \land
 GoesWith(x,y)$.
+-->
 
 ### Translate FOL into English:
 
@@ -191,9 +200,15 @@ a) $WorthMore(quarter, penny) \land WorthMore(quarter, nickel) \land
 WorthMore(quarter, dime)$.
 b) $WorthMore(quarter, penny) \land WorthMore(quarter, nickel) \land
 WorthMore(quarter, dime) \land penny \neq nickel \land nickel \neq
+dime \land penny \neq dime \land (\forall \; x \; WorthMore(quarter, x) \fd (x 
+= penny \lor x = nickel \lor x = dime))$.
+<!--
+b) $WorthMore(quarter, penny) \land WorthMore(quarter, nickel) \land
+WorthMore(quarter, dime) \land penny \neq nickel \land nickel \neq
 dime \land penny \neq dime \land \forall \; x \; UScoins(x) \land x \neq
 quarter \land x \neq penny \land x \neq nickel \land x \neq dime
 \land WorthMore(x, quarter)$.
+-->
 
 ## Unification
 
@@ -238,14 +253,19 @@ d) $\{x/A, y/A, z/G(B)\}$.
 \text{Near}(\text{Frank}, W_0))$.
 5) $(\sim \text{LS}(\text{Frank}) \lor \text{Mouse}(M)) \land (\sim \text{LS}(\text{Frank}) \lor \text{Have}(\text{Frank},M))$.
 
-### Prove "Frank is not a light sleeper" using Resolution Refutation.
+### Prove "Frank is not a light sleeper" using Resolution Refutation. 
+
+<!--
+\reminder{check}
+-->
 
 1) Convert "Frank is not a light sleeper" to CNF: $\sim
 \text{LS}(\text{Frank})$.
 
 2) Add $\text{LS}(\text{Frank})$ to KB and try to find controversy.
 
-3) $\displaystyle \frac{ (\sim \text{LS}(F) \lor \text{Mouse}(M)) \land \text{LS}(\text{Frank})
+3) $\displaystyle \frac{ (\sim \text{LS}(Frank) \lor \text{Mouse}(M)) \land 
+   \text{LS}(\text{Frank})
 }{\text{Mouse}(M)}$. Add $\text{Mouse}(M)$ to KB. $\displaystyle \frac{ (\sim \text{LS}(F) \lor
 \text{Have}(\text{Frank},M)) \land \text{LS}(\text{Frank}) }{\text{Have}(\text{Frank},M)}$. Add $\text{Have}(\text{Frank},M)$
 to KB.
@@ -268,8 +288,11 @@ $\text{Wolf}(W_0) \lor \sim \text{Have}(\text{Frank},X_1)$ to KB.
 \text{Howl}(wW_0$ to KB.
 
 8) $\displaystyle \frac{ (\sim \text{LS}(x) \lor \sim \text{Howl}(y) \lor \sim \text{Near}(x,y)) \land
-(\text{Near}(\text{Frank},W_0) \lor \text{Howl}(W_0)) }{\sim \text{LS}(\text{Frank})}$. $\sim \text{LS}(\text{Frank})$
-contradict with our assumption $\text{LS}(\text{Frank})$. Therefore \text{Frank} is not a
+(\text{Near}(\text{Frank},W_0) \lor \text{Howl}(W_0)) }{\sim 
+\text{LS}(\text{Frank})}$. Add $\sim \text{LS}(\text{Frank})$ to KB.
+
+9) $\displaystyle \frac{ \sim \text{LS}(\text{Frank}) \land 
+   \text{LS}(\text{Frank}) }{ \{ \} }$. Therefore \text{Frank} is not a
 light sleeper.
 
 <!--
