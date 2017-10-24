@@ -274,10 +274,29 @@ to KB.
 \text{Mouse}(z) \lor \sim \text{Have}(x,z)) \land \text{Mouse}(M) \land \text{Have}(\text{Frank},M)}{\sim
 \text{Cat}(y) \lor \sim \text{Have}(\text{Frank}, y)}$. Add $\sim \text{Cat}(y) \lor \sim \text{Have}(\text{Frank}, y)$ to KB. 
 
+<!--
 5) $\displaystyle \frac{(\text{Cat}(X_1) \lor \text{Wolf}(W_0)) \land (\sim \text{Cat}(y)
 \lor \sim \text{Have}(\text{Frank},y))}{\text{Wolf}(W_0) \lor \sim \text{Have}(\text{Frank},X_1)}$. Add
-$\text{Wolf}(W_0) \lor \sim \text{Have}(\text{Frank},X_1)$ to KB. 
+$\text{Wolf}(W_0) \lor \sim \text{Have}(\text{Frank},X_1)$ to KB. -->
 
+5) $\displaystyle \frac{(\text{Cat}(X_1) \lor \text{Wolf}(W_0)) \land (\sim 
+   \text{Cat}(y))}{\text{Wolf}(W_0)}$. Add $\text{Wolf}(W_0)$ to KB. $\{y / 
+   X_1\}$. 
+
+6) $\displaystyle \frac{(\text{Have}(\text{Frank},X_1) \lor 
+   \text{Near}(\text{Frank}, W_0) \land (\text{Have} (\text{Frank} , 
+   X_1))}{\text{Near}(\text{Frank}, W_0)}$ Add $\text{Near}(\text{Frank}, 
+   W_0)$.
+
+7) $\displaystyle \frac{(\sim Wolf(w) \lor Howl(w)) \land 
+   Wolf(W_0)}{Howl(W_0)}$. Add $Howl(W_0)$ to KB.
+
+8) $\displaystyle \frac{(\sim LS(x) \lor \sim Howl(y) \lor \sim Near(x,y)) 
+   \land LS(Frank) \land Howl(W_0) \land Have(Frank, W_0)}{\{\}}$. Result in 
+   controversy. Therefore \text{Frank} is not a light sleeper.
+
+
+<!--
 6) $\displaystyle \frac{(\text{Have}(\text{Frank},X_1) \lor \text{Near}(\text{Frank}, W_0)) \land
 (\text{Wolf}(W_0) \lor \sim \text{Have}(\text{Frank},X_1))
 }{\text{Near}(\text{Frank},W_0) \lor
@@ -294,6 +313,7 @@ $\text{Wolf}(W_0) \lor \sim \text{Have}(\text{Frank},X_1)$ to KB.
 9) $\displaystyle \frac{ \sim \text{LS}(\text{Frank}) \land 
    \text{LS}(\text{Frank}) }{ \{ \} }$. Therefore \text{Frank} is not a
 light sleeper.
+-->
 
 <!--
 6) $\displaystyle \frac{(Cat(X
